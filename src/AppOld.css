@@ -1,0 +1,76 @@
+/* Importe fontes no seu index.html ou use uma ferramenta como @fontsource */
+/* Exemplo: @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&display=swap'); */
+
+.app {
+  font-family: 'Playfair Display', serif; /* Fonte elegante para o corpo */
+  background-color: #f8f4f0; /* Fundo suave, como papel antigo */
+  color: #5a4a42; /* Cor marrom elegante */
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.brasao {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%; /* Forma circular para elegância */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.welcome-text {
+  font-family: 'Great Vibes', cursive; /* Fonte script romântica */
+  font-size: 24px;
+  color: #8b5a3c; /* Tom dourado/marrom */
+  margin: 0;
+}
+
+.list-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #8b5a3c;
+}
+
+.gift-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.gift-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+.gift-item.checked {
+  background-color: #e8f5e8; /* Verde claro para itens marcados */
+}
+
+.gift-item input[type='checkbox'] {
+  margin-right: 15px;
+  transform: scale(1.2);
+}
+
+.gift-details h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #5a4a42;
+}
+
+.gift-details p {
+  margin: 5px 0 0 0;
+  font-size: 16px;
+  color: #7a6a5a;
+}
