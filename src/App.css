@@ -1,160 +1,210 @@
-/* Importe fontes no index.html: <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&display=swap" rel="stylesheet"> */
-
-.app-container {
-  font-family: 'Playfair Display', serif;
-  background: linear-gradient(
-    135deg,
-    #f8f4f0 0%,
-    #e8d5c4 100%
-  ); /* Gradiente suave para fundo chique */
-  min-height: 100vh;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.app {
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
 }
 
-.header {
-  text-align: center;
-  margin-bottom: 50px;
-  animation: fadeIn 1s ease-in-out;
+.cover-image {
+  width: 100%;
+  height: 90vh;
+  position: relative;
+  overflow: hidden;
 }
+.cover-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
 
-.crest-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background-image: url('../src/assets/cover.png');
+  background-size: cover;
+  background-position: center;
+
+  filter: blur(25px);
+  transform: scale(1.1);
+
+  z-index: 0;
 }
+.cover-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
 
-.crest {
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  border: 5px solid #d4af37; /* Borda dourada elegante */
-  transition: transform 0.3s ease;
-}
+  background-image: url('../src/assets/cover.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 
-.crest:hover {
-  transform: scale(1.05);
+  z-index: 1;
 }
 
 .welcome-text {
-  font-family: 'Great Vibes', cursive;
-  font-size: 28px;
-  color: #8b5a3c;
-  margin-top: 20px;
-  max-width: 600px;
-  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p {
+    font-size: 16px;
+    margin-top: 20px;
+    color: #333;
+    text-align: center;
+    width: 50vw;
+    font-family: 'Cinzel', serif !important;
+  }
 }
 
-.gift-list {
-  width: 100%;
-  max-width: 1200px;
+.countdown {
+  background-color: #b4988a;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  p {
+    color: #fff;
+    font-weight: bold;
+    font-size: 24px;
+    font-family: 'Cinzel', serif !important;
+  }
 }
 
-.list-title {
-  font-family: 'Great Vibes', cursive;
-  font-size: 48px;
+.boxStyle {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px 10px;
+  width: 90px;
   text-align: center;
-  margin-bottom: 30px;
-  color: #d4af37;
+}
+
+.numberStyle {
+  font-size: 32px;
+  font-weight: 600;
+  color: #8b6f61;
+  font-family: 'Cinzel', serif !important;
+}
+
+.labelStyle {
+  font-size: 14px;
+  color: #8b6f61;
+  margin-top: 5px;
+  letter-spacing: 1px;
+  font-family: 'Cinzel', serif !important;
+  font-weight: bold;
+}
+
+.row {
+  display: flex;
+  gap: 15px;
+}
+
+.sobre-noivos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  margin-top: 100px;
+}
+.img-ramo {
+  width: 300px;
+  height: 300px;
+  margin-bottom: -100px;
+}
+.title {
+  font-size: 26px;
+  color: #8b6f61;
+  margin-top: 5px;
+  letter-spacing: 1px;
+  font-family: 'Cinzel', serif !important;
+  font-weight: bold;
+}
+.noivos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .noiva {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .noivo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .foto-noivos {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+  }
+}
+
+.noivos-text {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p {
+    font-size: 16px;
+    margin-top: 20px;
+    color: #333;
+    text-align: center;
+    width: 50vw;
+    font-family: 'Cinzel', serif !important;
+  }
+  z-index: 10;
+}
+
+.swiper {
+  z-index: 1;
+  margin-top: 250px;
+}
+.swiper-button-next,
+.swiper-button-prev {
+  color: #8b6f61 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #8b6f61 !important;
+}
+
+.recepcao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .recepcao-text {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p {
+      font-size: 16px;
+      margin-top: 20px;
+      color: #333;
+      text-align: center;
+      width: 50vw;
+      font-family: 'Cinzel', serif !important;
+    }
+  }
+  .img-recepcao {
+    height: 500px;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+.map {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.heart-icon {
-  margin-left: 10px;
-  color: #d4af37;
-  animation: pulse 2s infinite;
-}
-
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.gift-card {
-  background: linear-gradient(145deg, #ffffff 0%, #f0f0f0 100%);
-  border-radius: 15px;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.gift-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
-
-.gift-card.checked {
-  background: linear-gradient(145deg, #e8f5e8 0%, #d4edda 100%);
-  border: 2px solid #28a745;
-}
-
-.card-content {
-  padding: 20px;
-}
-
-.card-header {
+.lista-presentes {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 10px;
-}
-
-.checkbox {
-  color: #d4af37;
-  margin-right: 10px;
-}
-
-.gift-name {
-  font-weight: 600;
-  color: #5a4a42;
-}
-
-.gift-description {
-  color: #7a6a5a;
-  font-style: italic;
-}
-
-/* Animações */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-  .list-title {
-    font-size: 36px;
-  }
-  .welcome-text {
-    font-size: 24px;
-  }
-  .crest {
-    width: 200px;
-    height: 200px;
-  }
-  .cards-grid {
-    grid-template-columns: 1fr;
-  }
+  justify-content: center;
 }
