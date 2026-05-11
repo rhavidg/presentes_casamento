@@ -1,35 +1,5 @@
-// function Carteira() {
-//   const pagar = async () => {
-//     const response = await fetch('http://localhost:3333/criar-pagamento', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     });
-
-//     const data = await response.json();
-
-//     console.log('Resposta backend:', data);
-
-//     if (!data.url) {
-//       alert('Erro ao gerar pagamento');
-//       return;
-//     }
-
-//     window.location.href = data.url;
-//   };
-
-//   return (
-//     <div style={{ padding: 40 }}>
-//       <h2>Pagamento com PagBank</h2>
-//       <button onClick={pagar}>Pagar</button>
-//     </div>
-//   );
-// }
-
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import Wallet from './components/Wallet/Wallet';
 import ramo from './assets/ramo.png';
 import noivo from './assets/noivo.jpg';
 import noiva from './assets/noiva.jpg';
@@ -42,21 +12,64 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
-
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import { Card, CardContent, Typography, Button, Box } from '@mui/material';
+import WalletStripe from './components/WalletStripe/WalletStripe';
+import brasilFlag from './assets/brasil.jpg';
+import espanhaFlag from './assets/espanha.png';
 delete L.Icon.Default.prototype._getIconUrl;
-
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: markerIcon2x,
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
 });
-
 function App() {
-  const position = [-19.9167, -43.9345]; // Belo Horizonte
+  const [language, setLanguage] = useState('pt');
+
+  const translations = {
+    pt: {
+      welcome:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non pulvinar lorem, sit amet lacinia dui. Suspendisse potenti. Donec congue dapibus mi. Fusce tempor ex id luctus varius. Maecenas ac lorem non sapien tincidunt interdum vel eget neque. Praesent tempus nunc gravida odio euismod.',
+      countdown: 'CONTAGEM REGRESSIVA',
+      days: 'DIAS',
+      hours: 'HORAS',
+      minutes: 'MINUTOS',
+      seconds: 'SEGUNDOS',
+      couple: 'O CASAL',
+      coupleText:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non pulvinar lorem, sit amet lacinia dui. Suspendisse potenti. Donec congue dapibus mi. Fusce tempor ex id luctus varius. Maecenas ac lorem non sapien tincidunt interdum vel eget neque. Praesent tempus nunc gravida odio euismod, quis fermentum ipsum sollicitudin. Donec sed nibh vestibulum, mollis diam a, pretium magna. Donec sit amet fermentum urna. Integer sit amet arcu a justo pretium aliquet. Curabitur facilisis sed lacus ut fringilla. Vestibulum eleifend enim eu justo elementum vestibulum. Donec scelerisque diam nunc, eget iaculis nisi aliquam non.',
+      reception: 'RECEPÇÃO',
+      receptionText:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non pulvinar lorem, sit amet lacinia dui. Suspendisse potenti. Donec congue dapibus mi. Fusce tempor ex id luctus varius. Maecenas ac lorem non sapien tincidunt interdum vel eget neque. Praesent tempus nunc gravida odio euismod, quis fermentum ipsum sollicitudin.',
+      gifts: 'LISTA DE PRESENTES',
+      giftButton: 'Presentear',
+      weddingPlace: 'Local do casamento 💍',
+    },
+
+    es: {
+      welcome:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non pulvinar lorem, sit amet lacinia dui. Suspendisse potenti. Donec congue dapibus mi. Fusce tempor ex id luctus varius. Maecenas ac lorem non sapien tincidunt interdum vel eget neque. Praesent tempus nunc gravida odio euismod.',
+      countdown: 'CUENTA REGRESIVA',
+      days: 'DÍAS',
+      hours: 'HORAS',
+      minutes: 'MINUTOS',
+      seconds: 'SEGUNDOS',
+      couple: 'LA PAREJA',
+      coupleText:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non pulvinar lorem, sit amet lacinia dui. Suspendisse potenti. Donec congue dapibus mi. Fusce tempor ex id luctus varius. Maecenas ac lorem non sapien tincidunt interdum vel eget neque. Praesent tempus nunc gravida odio euismod, quis fermentum ipsum sollicitudin. Donec sed nibh vestibulum, mollis diam a, pretium magna. Donec sit amet fermentum urna. Integer sit amet arcu a justo pretium aliquet. Curabitur facilisis sed lacus ut fringilla. Vestibulum eleifend enim eu justo elementum vestibulum. Donec scelerisque diam nunc, eget iaculis nisi aliquam non.',
+      reception: 'RECEPCIÓN',
+      receptionText:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non pulvinar lorem, sit amet lacinia dui. Suspendisse potenti. Donec congue dapibus mi. Fusce tempor ex id luctus varius. Maecenas ac lorem non sapien tincidunt interdum vel eget neque. Praesent tempus nunc gravida odio euismod, quis fermentum ipsum sollicitudin.',
+      gifts: 'LISTA DE REGALOS',
+      giftButton: 'Regalar',
+      weddingPlace: 'Lugar de la boda 💍',
+    },
+  };
+
+  const t = translations[language];
+
   const targetDate = new Date('2026-08-29T00:00:00');
 
   const calculateTimeLeft = () => {
@@ -97,106 +110,115 @@ function App() {
       borderRadius: '12px',
     },
   };
-
   const presentes = [
     {
       id: 1,
-      nome: '2 Passagens Aéreas para a Lua de Mel',
+      nome: {
+        pt: '2 Passagens Aéreas para a Lua de Mel',
+        es: '2 Pasajes Aéreos para la Luna de Miel',
+      },
       preco: 'R$1.914,53',
       imagem:
         'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1200&auto=format&fit=crop',
     },
+
     {
       id: 2,
-      nome: 'Abajur Decorativo',
+      nome: {
+        pt: 'Abajur Decorativo',
+        es: 'Lámpara Decorativa',
+      },
       preco: 'R$253,84',
       imagem:
         'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200&auto=format&fit=crop',
     },
+
     {
       id: 3,
-      nome: 'Adega de Vinhos Climatizada',
+      nome: {
+        pt: 'Adega de Vinhos Climatizada',
+        es: 'Cava de Vinos Climatizada',
+      },
       preco: 'R$1.538,41',
       imagem:
         'https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?q=80&w=1200&auto=format&fit=crop',
     },
+
     {
       id: 4,
-      nome: 'Aluguel de Carro para a Lua de Mel',
+      nome: {
+        pt: 'Aluguel de Carro para a Lua de Mel',
+        es: 'Alquiler de Auto para la Luna de Miel',
+      },
       preco: 'R$1.851,85',
       imagem:
         'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop',
     },
   ];
+
+  const position = [-19.9167, -43.9345]; // Belo Horizonte
+
   return (
     <div className="app">
-      {/* <Wallet /> */}
+      {/* TOPO COM BANDEIRAS */}
+      <div className="language-selector">
+        <img
+          src={brasilFlag}
+          alt="Português"
+          onClick={() => setLanguage('pt')}
+          className={language === 'pt' ? 'active-flag' : ''}
+        />
+
+        <img
+          src={espanhaFlag}
+          alt="Español"
+          onClick={() => setLanguage('es')}
+          className={language === 'es' ? 'active-flag' : ''}
+        />
+      </div>
       <div className="cover-image" />
       <div className="welcome-text">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non pulvinar lorem, sit
-          amet lacinia dui. Suspendisse potenti. Donec congue dapibus mi. Fusce tempor ex id luctus
-          varius. Maecenas ac lorem non sapien tincidunt interdum vel eget neque. Praesent tempus
-          nunc gravida odio euismod, quis fermentum ipsum sollicitudin. Donec sed nibh vestibulum,
-          mollis diam a, pretium magna. Donec sit amet fermentum urna. Integer sit amet arcu a justo
-          pretium aliquet. Curabitur facilisis sed lacus ut fringilla. Vestibulum eleifend enim eu
-          justo elementum vestibulum. Donec scelerisque diam nunc, eget iaculis nisi aliquam non.
-        </p>
+        <p>{t.welcome}</p>
       </div>
       <div className="countdown">
         <div>
-          <p>CONTAGEM</p>
-          <p>REGRESSIVA</p>
+          <p>{t.countdown}</p>
         </div>
         <div></div>
         <div className="row">
           <div className="boxStyle">
             <div className="numberStyle">{timeLeft.days}</div>
             <div className="labelStyle" S>
-              DIAS
+              {t.days}
             </div>
           </div>
-
           <div className="boxStyle">
             <div className="numberStyle">{timeLeft.hours}</div>
-            <div className="labelStyle">HORAS</div>
+            <div className="labelStyle">{t.hours}</div>
           </div>
-
           <div className="boxStyle">
             <div className="numberStyle">{timeLeft.minutes}</div>
-            <div className="labelStyle">MINUTOS</div>
+            <div className="labelStyle">{t.minutes}</div>
           </div>
-
           <div className="boxStyle">
             <div className="numberStyle">{timeLeft.seconds}</div>
-            <div className="labelStyle">SEGUNDOS</div>
+            <div className="labelStyle">{t.seconds}</div>
           </div>
         </div>
       </div>
       <div className="sobre-noivos">
         <img src={ramo} className="img-ramo" alt="Ramo de Flores" />
-        <h1 className="title">O CASAL</h1>
+        <h1 className="title">{t.couple}</h1>
         <div className="noivos">
           <div className="noiva">
-            <img src={noiva} alt="Noiva" className="foto-noivos" />
-            <p>MARIA</p>
+            <img src={noiva} alt="Noiva" className="foto-noivos" /> <p>MORGANNA</p>
           </div>
           <div className="noivo">
-            <img src={noivo} alt="Noivo" className="foto-noivos" />
-            <p>JOAO</p>
+            <img src={noivo} alt="Noivo" className="foto-noivos" /> <p>RAFAEL</p>
           </div>
         </div>
         <div className="noivos-text">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non pulvinar lorem, sit
-            amet lacinia dui. Suspendisse potenti. Donec congue dapibus mi. Fusce tempor ex id
-            luctus varius. Maecenas ac lorem non sapien tincidunt interdum vel eget neque. Praesent
-            tempus nunc gravida odio euismod, quis fermentum ipsum sollicitudin. Donec sed nibh
-            vestibulum, mollis diam a, pretium magna. Donec sit amet fermentum urna. Integer sit
-            amet arcu a justo pretium aliquet. Curabitur facilisis sed lacus ut fringilla.
-            Vestibulum eleifend enim eu justo elementum vestibulum. Donec scelerisque diam nunc,
-            eget iaculis nisi aliquam non.
-          </p>
+          <p>{t.coupleText}</p>
         </div>
       </div>
       <div className="carousel">
@@ -212,11 +234,9 @@ function App() {
           <SwiperSlide>
             <div style={styles.slide}>Slide 1</div>
           </SwiperSlide>
-
           <SwiperSlide>
             <div style={styles.slide}>Slide 2</div>
           </SwiperSlide>
-
           <SwiperSlide>
             <div style={styles.slide}>Slide 3</div>
           </SwiperSlide>
@@ -224,15 +244,10 @@ function App() {
       </div>
       <div className="recepcao">
         <img src={ramo} className="img-ramo" alt="Ramo de Flores" />
-        <h1 className="title">RECEPÇÃO</h1>
+        <h1 className="title">{t.reception}</h1>
         <img src={recepcao} className="img-recepcao" alt="Local da recepcao" />
         <div className="recepcao-text">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non pulvinar lorem, sit
-            amet lacinia dui. Suspendisse potenti. Donec congue dapibus mi. Fusce tempor ex id
-            luctus varius. Maecenas ac lorem non sapien tincidunt interdum vel eget neque. Praesent
-            tempus nunc gravida odio euismod, quis fermentum ipsum sollicitudin.
-          </p>
+          <p>{t.receptionText}</p>
         </div>
       </div>
       <div className="map">
@@ -240,25 +255,20 @@ function App() {
           center={position}
           zoom={15}
           scrollWheelZoom={true}
-          style={{
-            height: '300px',
-            width: '90%',
-            borderRadius: '16px',
-          }}
+          style={{ height: '300px', width: '90%', borderRadius: '16px' }}
         >
           <TileLayer
             attribution="&copy; OpenStreetMap contributors"
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-
           <Marker position={position}>
-            <Popup>Local do casamento 💍</Popup>
+            <Popup>{t.weddingPlace}</Popup>
           </Marker>
         </MapContainer>
       </div>
       <div className="lista-presentes">
         <img src={ramo} className="img-ramo" alt="Ramo de Flores" />
-        <h1 className="title">LISTA DE PRESENTES</h1>
+        <h1 className="title">{t.gifts}</h1>
         <Box
           sx={{
             background: '#f7f7f7',
@@ -268,18 +278,11 @@ function App() {
             justifyContent: 'center',
           }}
         >
-          <Box
-            sx={{
-              width: '100%',
-            }}
-          >
+          <Box sx={{ width: '100%' }}>
             <Box
               sx={{
                 display: 'grid',
-                gridTemplateColumns: {
-                  xs: '1fr 1fr',
-                  md: '1fr 1fr 1fr',
-                },
+                gridTemplateColumns: { xs: '1fr', md: '1fr 1fr 1fr' },
                 gap: '16px',
               }}
             >
@@ -296,7 +299,7 @@ function App() {
                   <Box
                     component="img"
                     src={presente.imagem}
-                    alt={presente.nome}
+                    alt={presente.nome[language]}
                     sx={{
                       width: '100%',
                       height: '180px',
@@ -305,12 +308,7 @@ function App() {
                       display: 'block',
                     }}
                   />
-
-                  <CardContent
-                    sx={{
-                      padding: '5px 0 0 0 !important',
-                    }}
-                  >
+                  <CardContent sx={{ padding: '5px 0 0 0 !important' }}>
                     <Typography
                       sx={{
                         textAlign: 'center',
@@ -318,15 +316,13 @@ function App() {
                         color: '#555',
                         lineHeight: '26px',
                         minHeight: '80px',
-
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                       }}
                     >
-                      {presente.nome}
+                      {presente.nome[language]}
                     </Typography>
-
                     <Typography
                       sx={{
                         textAlign: 'center',
@@ -338,7 +334,6 @@ function App() {
                     >
                       {presente.preco}
                     </Typography>
-
                     <Button
                       fullWidth
                       variant="contained"
@@ -351,14 +346,10 @@ function App() {
                         fontWeight: 'bold',
                         textTransform: 'none',
                         boxShadow: 'none',
-
-                        '&:hover': {
-                          background: '#a97563',
-                          boxShadow: 'none',
-                        },
+                        '&:hover': { background: '#a97563', boxShadow: 'none' },
                       }}
                     >
-                      Presentear
+                      {t.giftButton}
                     </Button>
                   </CardContent>
                 </Card>
@@ -367,110 +358,11 @@ function App() {
           </Box>
         </Box>
       </div>
+      <div className="stripe">
+        <WalletStripe />
+      </div>
     </div>
   );
 }
 
 export default App;
-
-// import { useState } from 'react';
-// import {
-//   Card,
-//   CardContent,
-//   Typography,
-//   Checkbox,
-//   Box,
-// } from '@mui/material';
-// import FavoriteIcon from '@mui/icons-material/Favorite';
-// import './App.css';
-
-// function App() {
-//   const [gifts, setGifts] = useState([
-//     {
-//       id: 1,
-//       name: 'Jogo de Talheres',
-//       description: 'Para nossa nova cozinha',
-//       checked: false,
-//     },
-//     {
-//       id: 2,
-//       name: 'Toalhas de Banho',
-//       description: 'Conjunto de 4 peças',
-//       checked: false,
-//     },
-//     {
-//       id: 3,
-//       name: 'Aparelho de Jantar',
-//       description: 'Para 6 pessoas',
-//       checked: false,
-//     },
-//     {
-//       id: 4,
-//       name: 'Máquina de Café',
-//       description: 'Para começar o dia bem',
-//       checked: false,
-//     },
-//   ]);
-
-//   const toggleGift = (id) => {
-//     setGifts(
-//       gifts.map((gift) =>
-//         gift.id === id ? { ...gift, checked: !gift.checked } : gift
-//       )
-//     );
-//   };
-
-//   return (
-//     <Box className="app-container">
-//       {/* Header com brasão e texto */}
-//       <Box className="header">
-//         <Box className="crest-container">
-//           <img
-//             src="https://via.placeholder.com/250x250?text=Brasão+do+Casamento"
-//             alt="Brasão do Casamento"
-//             className="crest"
-//           />
-//           <Typography variant="h4" className="welcome-text">
-//             Bem-vindo à nossa lista de presentes! Ajude-nos a celebrar o início
-//             da nossa jornada juntos.
-//           </Typography>
-//         </Box>
-//       </Box>
-
-//       {/* Lista de presentes em cards */}
-//       <Box className="gift-list">
-//         <Typography variant="h3" className="list-title">
-//           Lista de Presentes <FavoriteIcon className="heart-icon" />
-//         </Typography>
-//         <Box className="cards-grid">
-//           {gifts.map((gift) => (
-//             <Card
-//               key={gift.id}
-//               className={`gift-card ${gift.checked ? 'checked' : ''}`}
-//               elevation={3}
-//             >
-//               <CardContent className="card-content">
-//                 <Box className="card-header">
-//                   <Checkbox
-//                     checked={gift.checked}
-//                     onChange={() => toggleGift(gift.id)}
-//                     color="primary"
-//                     className="checkbox"
-//                   />
-//                   <Typography variant="h5" className="gift-name">
-//                     {gift.name}
-//                   </Typography>
-//                 </Box>
-//                 <Typography variant="body1" className="gift-description">
-//                   {gift.description}
-//                 </Typography>
-//               </CardContent>
-//             </Card>
-//           ))}
-//         </Box>
-//       </Box>
-//     </Box>
-//   );
-// }
-
-// export default App;

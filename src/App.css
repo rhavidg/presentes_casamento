@@ -1,3 +1,8 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
 .app {
   padding: 0px;
   margin: 0px;
@@ -53,11 +58,11 @@
 
 .countdown {
   background-color: #b4988a;
-  height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-bottom: 50px;
   p {
     color: #fff;
     font-weight: bold;
@@ -79,6 +84,9 @@
   font-weight: 600;
   color: #8b6f61;
   font-family: 'Cinzel', serif !important;
+  @media screen and (max-width: 320px) {
+    font-size: 18px;
+  }
 }
 
 .labelStyle {
@@ -93,6 +101,10 @@
 .row {
   display: flex;
   gap: 15px;
+  @media screen and (max-width: 320px) {
+    gap: 10px;
+    flex-direction: column;
+  }
 }
 
 .sobre-noivos {
@@ -100,18 +112,23 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 500px;
-  margin-top: 100px;
+  margin-top: -50px;
+  @media screen and (max-width: 320px) {
+    margin-top: -30px;
+  }
 }
 .img-ramo {
   width: 300px;
   height: 300px;
-  margin-bottom: -100px;
+  @media screen and (max-width: 320px) {
+    width: 200px;
+    height: 200px;
+  }
 }
 .title {
   font-size: 26px;
   color: #8b6f61;
-  margin-top: 5px;
+  margin-top: -50px;
   letter-spacing: 1px;
   font-family: 'Cinzel', serif !important;
   font-weight: bold;
@@ -120,25 +137,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  .noiva {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .noivo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .foto-noivos {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px;
+}
+.noivos .noiva,
+.noivos .noivo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.foto-noivos {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  @media screen and (max-width: 320px) {
+    width: 130px;
+    height: 130px;
   }
 }
 
@@ -147,20 +163,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  p {
-    font-size: 16px;
-    margin-top: 20px;
-    color: #333;
-    text-align: center;
-    width: 50vw;
-    font-family: 'Cinzel', serif !important;
-  }
   z-index: 10;
+}
+.noivos-text p {
+  font-size: 16px;
+  margin-top: 20px;
+  color: #333;
+  text-align: center;
+  width: 50vw;
+  font-family: 'Cinzel', serif !important;
 }
 
 .swiper {
   z-index: 1;
-  margin-top: 250px;
 }
 .swiper-button-next,
 .swiper-button-prev {
@@ -194,6 +209,7 @@
     height: 500px;
     width: 100%;
     object-fit: cover;
+    margin-top: 10px;
   }
 }
 .map {
@@ -207,4 +223,32 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.language-selector {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+
+  display: flex;
+  gap: 10px;
+}
+
+.language-selector img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.2s;
+  border: 2px solid transparent;
+}
+
+.language-selector img:hover {
+  transform: scale(1.1);
+}
+
+.active-flag {
+  border: 2px solid #b88673 !important;
+  transform: scale(1.1);
 }
