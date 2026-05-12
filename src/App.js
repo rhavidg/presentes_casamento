@@ -15,10 +15,23 @@ import L from 'leaflet';
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
-import { Card, CardContent, Typography, Button, Box } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Box,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+} from '@mui/material';
 import WalletStripe from './components/WalletStripe/WalletStripe';
 import brasilFlag from './assets/brasil.jpg';
 import espanhaFlag from './assets/espanha.png';
+import { Modal } from 'antd';
+
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: markerIcon2x,
@@ -27,6 +40,9 @@ L.Icon.Default.mergeOptions({
 });
 function App() {
   const [language, setLanguage] = useState('pt');
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [modalPresente, setModalPresente] = useState(false);
+  const [paymentForm, setPaymentForm] = useState('pix');
 
   const translations = {
     pt: {
@@ -46,6 +62,7 @@ function App() {
       gifts: 'LISTA DE PRESENTES',
       giftButton: 'Presentear',
       weddingPlace: 'Local do casamento 💍',
+      paymentForm: 'Formas de pagamento',
     },
 
     es: {
@@ -65,6 +82,7 @@ function App() {
       gifts: 'LISTA DE REGALOS',
       giftButton: 'Regalar',
       weddingPlace: 'Lugar de la boda 💍',
+      paymentForm: 'Formas de pago',
     },
   };
 
@@ -86,6 +104,11 @@ function App() {
       minutes: Math.floor((difference / (1000 * 60)) % 60),
       seconds: Math.floor((difference / 1000) % 60),
     };
+  };
+
+  const presentear = (presente) => {
+    setSelectedItem(presente);
+    setModalPresente(true);
   };
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
@@ -348,6 +371,7 @@ function App() {
                         boxShadow: 'none',
                         '&:hover': { background: '#a97563', boxShadow: 'none' },
                       }}
+                      onClick={() => presentear(presente)}
                     >
                       {t.giftButton}
                     </Button>
@@ -358,9 +382,108 @@ function App() {
           </Box>
         </Box>
       </div>
-      <div className="stripe">
-        <WalletStripe />
-      </div>
+
+      {modalPresente && selectedItem && (
+        <Modal
+          title="Detalhes do Presente"
+          closable={{ 'aria-label': 'Custom Close Button' }}
+          open={modalPresente}
+          onOk={() => setModalPresente(false)}
+          onCancel={() => setModalPresente(false)}
+        >
+          <Card
+            key={selectedItem.id}
+            sx={{
+              borderRadius: '20px',
+              border: '1px solid #e3e3e3',
+              boxShadow: 'none',
+              padding: '14px',
+            }}
+          >
+            <Box
+              component="img"
+              src={selectedItem.imagem}
+              alt={selectedItem.nome[language]}
+              sx={{
+                width: '100%',
+                height: '180px',
+                objectFit: 'cover',
+                borderRadius: '18px',
+                display: 'block',
+              }}
+            />
+            <CardContent sx={{ padding: '5px 0 0 0 !important' }}>
+              <Typography
+                sx={{
+                  textAlign: 'center',
+                  fontSize: '14px',
+                  color: '#555',
+                  lineHeight: '26px',
+                  minHeight: '40px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                {selectedItem.nome[language]}
+              </Typography>
+              <Typography
+                sx={{
+                  textAlign: 'center',
+                  fontSize: '18px',
+                  fontWeight: 'bold',
+                  color: '#444',
+                  marginTop: '10px',
+                }}
+              >
+                {selectedItem.preco}
+              </Typography>
+              <FormControl
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginTop: '10px',
+                }}
+              >
+                <FormLabel id={`payment-label`}>{t.paymentForm}</FormLabel>
+                <RadioGroup row aria-labelledby={`payment-label`} name="row-radio-buttons-group">
+                  <FormControlLabel
+                    value="pix"
+                    control={<Radio onChange={() => setPaymentForm('pix')} />}
+                    label="Pix"
+                  />
+                  <FormControlLabel
+                    value="niqui"
+                    control={<Radio onChange={() => setPaymentForm('niqui')} />}
+                    label="Niqui"
+                  />
+                  <FormControlLabel
+                    value="card"
+                    control={<Radio onChange={() => setPaymentForm('card')} />}
+                    label="Cartão"
+                  />
+                </RadioGroup>
+              </FormControl>
+              {paymentForm === 'card' && (
+                <div className="stripe">
+                  <WalletStripe />
+                </div>
+              )}
+              {paymentForm === 'pix' && (
+                <div className="pix">
+                  <p>Instruções para pagamento via Pix:</p>
+                </div>
+              )}
+              {paymentForm === 'niqui' && (
+                <div className="niqui">
+                  <p>Instruções para pagamento via Niqui:</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </Modal>
+      )}
     </div>
   );
 }
