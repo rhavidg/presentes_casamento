@@ -1,12 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+
 body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
 }
+
 .app {
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
   width: 100%;
 }
 
@@ -16,30 +18,27 @@ body {
   position: relative;
   overflow: hidden;
 }
+
 .cover-image::before {
   content: '';
   position: absolute;
   inset: 0;
-
-  background-image: url('../src/assets/cover.png');
+  background-image: url('./assets/cover.png');
   background-size: cover;
   background-position: center;
-
   filter: blur(25px);
   transform: scale(1.1);
-
   z-index: 0;
 }
+
 .cover-image::after {
   content: '';
   position: absolute;
   inset: 0;
-
-  background-image: url('../src/assets/cover.png');
+  background-image: url('./assets/cover.png');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-
   z-index: 1;
 }
 
@@ -47,19 +46,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  p {
-    font-size: 16px;
-    margin-top: 20px;
-    color: #333;
-    text-align: center;
-    width: 50vw;
-    font-family: 'Cinzel', serif !important;
-  }
-  @media screen and (max-width: 320px) {
-    p {
-      width: 80vw;
-    }
-  }
+}
+
+.welcome-text p {
+  font-size: 16px;
+  margin-top: 20px;
+  color: #333;
+  text-align: center;
+  width: 50vw;
+  font-family: 'Cinzel', serif !important;
 }
 
 .countdown {
@@ -69,12 +64,13 @@ body {
   align-items: center;
   justify-content: center;
   padding-bottom: 50px;
-  p {
-    color: #fff;
-    font-weight: bold;
-    font-size: 24px;
-    font-family: 'Cinzel', serif !important;
-  }
+}
+
+.countdown p {
+  color: #fff;
+  font-weight: bold;
+  font-size: 24px;
+  font-family: 'Cinzel', serif !important;
 }
 
 .boxStyle {
@@ -90,9 +86,6 @@ body {
   font-weight: 600;
   color: #8b6f61;
   font-family: 'Cinzel', serif !important;
-  @media screen and (max-width: 320px) {
-    font-size: 18px;
-  }
 }
 
 .labelStyle {
@@ -107,10 +100,6 @@ body {
 .row {
   display: flex;
   gap: 15px;
-  @media screen and (max-width: 320px) {
-    gap: 10px;
-    flex-direction: column;
-  }
 }
 
 .sobre-noivos {
@@ -119,18 +108,13 @@ body {
   justify-content: center;
   align-items: center;
   margin-top: -50px;
-  @media screen and (max-width: 320px) {
-    margin-top: -30px;
-  }
 }
+
 .img-ramo {
   width: 300px;
   height: 300px;
-  @media screen and (max-width: 320px) {
-    width: 200px;
-    height: 200px;
-  }
 }
+
 .title {
   font-size: 26px;
   color: #8b6f61;
@@ -139,15 +123,14 @@ body {
   font-family: 'Cinzel', serif !important;
   font-weight: bold;
 }
+
 .noivos {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 80px;
-  @media screen and (max-width: 320px) {
-    gap: 10px;
-  }
 }
+
 .noivos .noiva,
 .noivos .noivo {
   display: flex;
@@ -156,21 +139,19 @@ body {
   justify-content: center;
   font-family: 'Cormorant Garamond', serif;
   font-size: 20px;
-  p {
-    margin-top: 15px;
-  }
 }
+
+.noivos .noiva p,
+.noivos .noivo p {
+  margin-top: 15px;
+}
+
 .foto-noivos {
   width: 200px;
   height: 200px;
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-  @media screen and (max-width: 320px) {
-    width: 130px;
-    height: 130px;
-  }
 }
 
 .noivos-text {
@@ -180,6 +161,7 @@ body {
   justify-content: center;
   z-index: 10;
 }
+
 .noivos-text p {
   font-size: 16px;
   margin-top: 20px;
@@ -187,14 +169,12 @@ body {
   text-align: center;
   width: 50vw;
   font-family: 'Cinzel', serif !important;
-  @media screen and (max-width: 320px) {
-    width: 80vw;
-  }
 }
 
 .swiper {
   z-index: 1;
 }
+
 .swiper-button-next,
 .swiper-button-prev {
   color: #8b6f61 !important;
@@ -209,30 +189,31 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  .recepcao-text {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    p {
-      font-size: 16px;
-      margin-top: 20px;
-      color: #333;
-      text-align: center;
-      width: 50vw;
-      font-family: 'Cinzel', serif !important;
-      @media screen and (max-width: 320px) {
-        width: 80vw;
-      }
-    }
-  }
-  .img-recepcao {
-    height: 500px;
-    width: 100%;
-    object-fit: cover;
-    margin-top: 10px;
-  }
 }
+
+.recepcao .recepcao-text {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recepcao .recepcao-text p {
+  font-size: 16px;
+  margin-top: 20px;
+  color: #333;
+  text-align: center;
+  width: 50vw;
+  font-family: 'Cinzel', serif !important;
+}
+
+.img-recepcao {
+  height: 500px;
+  width: 100%;
+  object-fit: cover;
+  margin-top: 10px;
+}
+
 .map {
   display: flex;
   align-items: center;
@@ -251,7 +232,6 @@ body {
   top: 20px;
   right: 20px;
   z-index: 999;
-
   display: flex;
   gap: 10px;
 }
@@ -272,4 +252,39 @@ body {
 .active-flag {
   border: 2px solid #b88673 !important;
   transform: scale(1.1);
+}
+
+@media screen and (max-width: 320px) {
+  .welcome-text p,
+  .noivos-text p,
+  .recepcao .recepcao-text p {
+    width: 80vw;
+  }
+
+  .numberStyle {
+    font-size: 18px;
+  }
+
+  .row {
+    gap: 10px;
+    flex-direction: column;
+  }
+
+  .sobre-noivos {
+    margin-top: -30px;
+  }
+
+  .img-ramo {
+    width: 200px;
+    height: 200px;
+  }
+
+  .noivos {
+    gap: 10px;
+  }
+
+  .foto-noivos {
+    width: 130px;
+    height: 130px;
+  }
 }
