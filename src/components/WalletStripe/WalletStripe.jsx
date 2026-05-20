@@ -1,13 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import {
-  Elements,
-  PaymentElement,
-  useStripe,
-  useElements,
-} from '@stripe/react-stripe-js';
+import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
 import { loadStripe } from '@stripe/stripe-js';
+
+import { Typography } from '@mui/material';
 
 const stripePromise = loadStripe(
   'pk_test_51SjafnL6sfqeya20UZAntfNI4Sm8M3H7CfIs8awpWmMQajwuwrSwNqn6PqpdlUqzlTtEOQ7qNZarqeTBOsm2HCPr00GGGc8vql',
@@ -23,20 +20,16 @@ function getStripeLocale() {
   if (language.startsWith('es')) {
     return 'es';
   }
-  
+
   return 'en';
 }
 
-export default function WalletStripe() {
-  const [clientSecret, setClientSecret] =
-    useState('');
+export default function WalletStripe({ amount }) {
+  const [clientSecret, setClientSecret] = useState('');
 
-  const [loadingPayment, setLoadingPayment] =
-    useState(true);
+  const [loadingPayment, setLoadingPayment] = useState(true);
 
-  const [locale, setLocale] = useState(
-    getStripeLocale(),
-  );
+  const [locale, setLocale] = useState(getStripeLocale());
 
   useEffect(() => {
     criarPagamento();
@@ -48,16 +41,10 @@ export default function WalletStripe() {
       setLocale(getStripeLocale());
     }
 
-    window.addEventListener(
-      'languagechange',
-      handleLanguageChange,
-    );
+    window.addEventListener('languagechange', handleLanguageChange);
 
     return () => {
-      window.removeEventListener(
-        'languagechange',
-        handleLanguageChange,
-      );
+      window.removeEventListener('languagechange', handleLanguageChange);
     };
   }, []);
 
@@ -65,19 +52,15 @@ export default function WalletStripe() {
     try {
       setLoadingPayment(true);
 
-      const response = await fetch(
-        'http://localhost:3333/create-payment-intent',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type':
-              'application/json',
-          },
-          body: JSON.stringify({
-            amount: 5000,
-          }),
+      const response = await fetch('http://localhost:3333/create-payment-intent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
+        body: JSON.stringify({
+          amount: amount,
+        }),
+      });
 
       const data = await response.json();
 
@@ -102,18 +85,27 @@ export default function WalletStripe() {
   );
 
   if (loadingPayment || !clientSecret) {
-    return <h1>Carregando pagamento...</h1>;
+    return (
+      <Typography
+        sx={{
+          textAlign: 'center',
+          fontSize: '14px',
+          color: '#555',
+          lineHeight: '26px',
+          minHeight: '40px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        Carregando pagamento...
+      </Typography>
+    );
   }
 
   return (
-    <Elements
-      key={`${clientSecret}-${locale}`}
-      stripe={stripePromise}
-      options={elementsOptions}
-    >
-      <CheckoutForm
-        criarPagamento={criarPagamento}
-      />
+    <Elements key={`${clientSecret}-${locale}`} stripe={stripePromise} options={elementsOptions}>
+      <CheckoutForm criarPagamento={criarPagamento} />
     </Elements>
   );
 }
@@ -125,11 +117,9 @@ function CheckoutForm({ criarPagamento }) {
 
   const [loading, setLoading] = useState(false);
 
-  const [errorMessage, setErrorMessage] =
-    useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const [successMessage, setSuccessMessage] =
-    useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -146,8 +136,7 @@ function CheckoutForm({ criarPagamento }) {
       elements,
 
       confirmParams: {
-        return_url:
-          'http://localhost:3000/sucesso',
+        return_url: 'http://localhost:3000/sucesso',
       },
 
       redirect: 'if_required',
@@ -161,15 +150,11 @@ function CheckoutForm({ criarPagamento }) {
 
       switch (result.error.code) {
         case 'card_declined':
-          setErrorMessage(
-            'Cartão recusado.',
-          );
+          setErrorMessage('Cartão recusado.');
           break;
 
         case 'expired_card':
-          setErrorMessage(
-            'Cartão expirado.',
-          );
+          setErrorMessage('Cartão expirado.');
           break;
 
         case 'incorrect_cvc':
@@ -177,40 +162,27 @@ function CheckoutForm({ criarPagamento }) {
           break;
 
         case 'processing_error':
-          setErrorMessage(
-            'Erro ao processar pagamento.',
-          );
+          setErrorMessage('Erro ao processar pagamento.');
           break;
 
         case 'insufficient_funds':
-          setErrorMessage(
-            'Saldo insuficiente.',
-          );
+          setErrorMessage('Saldo insuficiente.');
           break;
 
         case 'invalid_expiry_year':
-          setErrorMessage(
-            'Ano de expiração inválido.',
-          );
+          setErrorMessage('Ano de expiração inválido.');
           break;
 
         case 'invalid_expiry_month':
-          setErrorMessage(
-            'Mês de expiração inválido.',
-          );
+          setErrorMessage('Mês de expiração inválido.');
           break;
 
         case 'authentication_required':
-          setErrorMessage(
-            'Autenticação necessária.',
-          );
+          setErrorMessage('Autenticação necessária.');
           break;
 
         default:
-          setErrorMessage(
-            result.error.message ||
-              'Erro ao processar pagamento.',
-          );
+          setErrorMessage(result.error.message || 'Erro ao processar pagamento.');
       }
 
       return;
@@ -220,39 +192,27 @@ function CheckoutForm({ criarPagamento }) {
     if (result.paymentIntent) {
       switch (result.paymentIntent.status) {
         case 'succeeded':
-          setSuccessMessage(
-            'Pagamento aprovado com sucesso!',
-          );
+          setSuccessMessage('Pagamento aprovado com sucesso!');
           break;
 
         case 'processing':
-          setSuccessMessage(
-            'Pagamento em processamento.',
-          );
+          setSuccessMessage('Pagamento em processamento.');
           break;
 
         case 'requires_payment_method':
-          setErrorMessage(
-            'Pagamento recusado. Tente outro cartão.',
-          );
+          setErrorMessage('Pagamento recusado. Tente outro cartão.');
           break;
 
         case 'requires_action':
-          setErrorMessage(
-            'Pagamento requer autenticação.',
-          );
+          setErrorMessage('Pagamento requer autenticação.');
           break;
 
         case 'canceled':
-          setErrorMessage(
-            'Pagamento cancelado.',
-          );
+          setErrorMessage('Pagamento cancelado.');
           break;
 
         default:
-          setSuccessMessage(
-            `Status: ${result.paymentIntent.status}`,
-          );
+          setSuccessMessage(`Status: ${result.paymentIntent.status}`);
       }
     }
   }
@@ -300,13 +260,10 @@ function CheckoutForm({ criarPagamento }) {
           marginTop: 20,
         }}
       >
-        {loading
-          ? 'Processando...'
-          : 'Pagar'}
+        {loading ? 'Processando...' : 'Pagar'}
       </button>
 
-      {(successMessage ||
-        errorMessage) && (
+      {(successMessage || errorMessage) && (
         <button
           type="button"
           onClick={handleNovoPagamento}

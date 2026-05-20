@@ -29,8 +29,9 @@ import {
 } from '@mui/material';
 import WalletStripe from './components/WalletStripe/WalletStripe';
 import brasilFlag from './assets/brasil.jpg';
-import espanhaFlag from './assets/espanha.png';
+import colombiaFlag from './assets/colombia.jpg';
 import { Modal } from 'antd';
+import MusicPlayer from './components/MusicPlayer/MusicPlayer';
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -61,7 +62,8 @@ function App() {
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non pulvinar lorem, sit amet lacinia dui. Suspendisse potenti. Donec congue dapibus mi. Fusce tempor ex id luctus varius. Maecenas ac lorem non sapien tincidunt interdum vel eget neque. Praesent tempus nunc gravida odio euismod, quis fermentum ipsum sollicitudin.',
       gifts: 'LISTA DE PRESENTES',
       giftButton: 'Presentear',
-      weddingPlace: 'Local do casamento 💍',
+      weddingPlace:
+        'Local do casamento 💍. Recanto Pampulha — Av. Otacílio Negrão de Lima, 7630 - Pampulha, Belo Horizonte - MG',
       paymentForm: 'Formas de pagamento',
     },
 
@@ -81,7 +83,8 @@ function App() {
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non pulvinar lorem, sit amet lacinia dui. Suspendisse potenti. Donec congue dapibus mi. Fusce tempor ex id luctus varius. Maecenas ac lorem non sapien tincidunt interdum vel eget neque. Praesent tempus nunc gravida odio euismod, quis fermentum ipsum sollicitudin.',
       gifts: 'LISTA DE REGALOS',
       giftButton: 'Regalar',
-      weddingPlace: 'Lugar de la boda 💍',
+      weddingPlace:
+        'Lugar de la boda 💍. Recanto Pampulha — Av. Otacílio Negrão de Lima, 7630 - Pampulha, Belo Horizonte - MG',
       paymentForm: 'Formas de pago',
     },
   };
@@ -110,6 +113,10 @@ function App() {
     setSelectedItem(presente);
     setModalPresente(true);
   };
+
+  function moneyToStripe(value) {
+    return Math.round(Number(value.replace('R$', '').replace(/\./g, '').replace(',', '.')) * 100);
+  }
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
@@ -179,10 +186,11 @@ function App() {
     },
   ];
 
-  const position = [-19.9167, -43.9345]; // Belo Horizonte
+  const position = [-19.85497, -43.97319];
 
   return (
     <div className="app">
+      <MusicPlayer />
       {/* TOPO COM BANDEIRAS */}
       <div className="language-selector">
         <img
@@ -193,7 +201,7 @@ function App() {
         />
 
         <img
-          src={espanhaFlag}
+          src={colombiaFlag}
           alt="Español"
           onClick={() => setLanguage('es')}
           className={language === 'es' ? 'active-flag' : ''}
@@ -454,9 +462,9 @@ function App() {
                     label="Pix"
                   />
                   <FormControlLabel
-                    value="niqui"
-                    control={<Radio onChange={() => setPaymentForm('niqui')} />}
-                    label="Niqui"
+                    value="nequi"
+                    control={<Radio onChange={() => setPaymentForm('nequi')} />}
+                    label="Llave Bre-B"
                   />
                   <FormControlLabel
                     value="card"
@@ -467,7 +475,7 @@ function App() {
               </FormControl>
               {paymentForm === 'card' && (
                 <div className="stripe">
-                  <WalletStripe />
+                  <WalletStripe amount={moneyToStripe(selectedItem.preco)} />
                 </div>
               )}
               {paymentForm === 'pix' && (
@@ -475,9 +483,9 @@ function App() {
                   <p>Instruções para pagamento via Pix:</p>
                 </div>
               )}
-              {paymentForm === 'niqui' && (
-                <div className="niqui">
-                  <p>Instruções para pagamento via Niqui:</p>
+              {paymentForm === 'nequi' && (
+                <div className="nequi">
+                  <p>Instruciones para pago con Llave Bre-B:</p>
                 </div>
               )}
             </CardContent>
