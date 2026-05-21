@@ -47,18 +47,28 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  p {
-    font-size: 16px;
-    margin-top: 20px;
-    color: #333;
-    text-align: center;
-    width: 50vw;
-    font-family: 'Cinzel', serif !important;
+}
+.welcome-text p {
+  font-size: 16px;
+  margin-top: 20px;
+  color: #333;
+  text-align: center;
+  width: 50vw;
+  font-family: 'Cinzel', serif !important;
+}
+@media screen and (max-width: 320px) {
+  .welcome-text p {
+    width: 80vw;
   }
-  @media screen and (max-width: 320px) {
-    p {
-      width: 80vw;
-    }
+}
+@media screen and (max-width: 375px) {
+  .welcome-text p {
+    width: 80vw;
+  }
+}
+@media screen and (max-width: 425px) {
+  .welcome-text p {
+    width: 80vw;
   }
 }
 
@@ -69,12 +79,13 @@ body {
   align-items: center;
   justify-content: center;
   padding-bottom: 50px;
-  p {
-    color: #fff;
-    font-weight: bold;
-    font-size: 24px;
-    font-family: 'Cinzel', serif !important;
-  }
+  padding-top: 20px;
+}
+.countdown p {
+  color: #fff;
+  font-weight: bold;
+  font-size: 24px;
+  font-family: 'Cinzel', serif !important;
 }
 
 .boxStyle {
@@ -90,8 +101,20 @@ body {
   font-weight: 600;
   color: #8b6f61;
   font-family: 'Cinzel', serif !important;
-  @media screen and (max-width: 320px) {
+}
+@media screen and (max-width: 320px) {
+  .numberStyle {
     font-size: 18px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .numberStyle {
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 425px) {
+  .numberStyle {
+    font-size: 22px;
   }
 }
 
@@ -107,7 +130,21 @@ body {
 .row {
   display: flex;
   gap: 15px;
-  @media screen and (max-width: 320px) {
+}
+@media screen and (max-width: 320px) {
+  .row {
+    gap: 10px;
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 375px) {
+  .row {
+    gap: 10px;
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 425px) {
+  .row {
     gap: 10px;
     flex-direction: column;
   }
@@ -119,14 +156,41 @@ body {
   justify-content: center;
   align-items: center;
   margin-top: -50px;
-  @media screen and (max-width: 320px) {
+}
+@media screen and (max-width: 320px) {
+  .sobre-noivos {
     margin-top: -30px;
   }
 }
+@media screen and (max-width: 375px) {
+  .sobre-noivos {
+    margin-top: -30px;
+  }
+}
+@media screen and (max-width: 425px) {
+  .sobre-noivos {
+    margin-top: -30px;
+  }
+}
+
 .img-ramo {
   width: 300px;
   height: 300px;
-  @media screen and (max-width: 320px) {
+}
+@media screen and (max-width: 320px) {
+  .img-ramo {
+    width: 200px;
+    height: 200px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .img-ramo {
+    width: 200px;
+    height: 200px;
+  }
+}
+@media screen and (max-width: 425px) {
+  .img-ramo {
     width: 200px;
     height: 200px;
   }
@@ -139,15 +203,29 @@ body {
   font-family: 'Cinzel', serif !important;
   font-weight: bold;
 }
+
 .noivos {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 80px;
-  @media screen and (max-width: 320px) {
+}
+@media screen and (max-width: 320px) {
+  .noivos {
     gap: 10px;
   }
 }
+@media screen and (max-width: 375px) {
+  .noivos {
+    gap: 10px;
+  }
+}
+@media screen and (max-width: 425px) {
+  .noivos {
+    gap: 10px;
+  }
+}
+
 .noivos .noiva,
 .noivos .noivo {
   display: flex;
@@ -156,20 +234,35 @@ body {
   justify-content: center;
   font-family: 'Cormorant Garamond', serif;
   font-size: 20px;
-  p {
-    margin-top: 15px;
-  }
 }
+.noivos .noiva p,
+.noivos .noivo p {
+  margin-top: 15px;
+}
+
 .foto-noivos {
   width: 200px;
   height: 200px;
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-  @media screen and (max-width: 320px) {
-    width: 130px;
-    height: 130px;
+}
+@media screen and (max-width: 320px) {
+  .foto-noivos {
+    width: 110px;
+    height: 110px;
+  }
+}
+@media screen and (max-width: 425px) {
+  .foto-noivos {
+    width: 150px;
+    height: 150px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .foto-noivos {
+    width: 110px;
+    height: 110px;
   }
 }
 
@@ -187,7 +280,19 @@ body {
   text-align: center;
   width: 50vw;
   font-family: 'Cinzel', serif !important;
-  @media screen and (max-width: 320px) {
+}
+@media screen and (max-width: 320px) {
+  .noivos-text p {
+    width: 80vw;
+  }
+}
+@media screen and (max-width: 375px) {
+  .noivos-text p {
+    width: 80vw;
+  }
+}
+@media screen and (max-width: 425px) {
+  .noivos-text p {
     width: 80vw;
   }
 }
@@ -209,30 +314,43 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  .recepcao-text {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    p {
-      font-size: 16px;
-      margin-top: 20px;
-      color: #333;
-      text-align: center;
-      width: 50vw;
-      font-family: 'Cinzel', serif !important;
-      @media screen and (max-width: 320px) {
-        width: 80vw;
-      }
-    }
-  }
-  .img-recepcao {
-    height: 500px;
-    width: 100%;
-    object-fit: cover;
-    margin-top: 10px;
+}
+.recepcao .recepcao-text {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.recepcao .recepcao-text p {
+  font-size: 16px;
+  margin-top: 20px;
+  color: #333;
+  text-align: center;
+  width: 50vw;
+  font-family: 'Cinzel', serif !important;
+}
+@media screen and (max-width: 320px) {
+  .recepcao .recepcao-text p {
+    width: 80vw;
   }
 }
+@media screen and (max-width: 375px) {
+  .recepcao .recepcao-text p {
+    width: 80vw;
+  }
+}
+@media screen and (max-width: 425px) {
+  .recepcao .recepcao-text p {
+    width: 80vw;
+  }
+}
+.recepcao .img-recepcao {
+  height: 500px;
+  width: 100%;
+  object-fit: cover;
+  margin-top: 10px;
+}
+
 .map {
   display: flex;
   align-items: center;
@@ -251,7 +369,6 @@ body {
   top: 20px;
   right: 20px;
   z-index: 999;
-
   display: flex;
   gap: 10px;
 }
