@@ -372,12 +372,12 @@ function App() {
                         marginTop: '22px',
                         height: '55px',
                         borderRadius: '16px',
-                        background: '#b88673',
+                        background: '#001f3f',
                         fontSize: '18px',
                         fontWeight: 'bold',
                         textTransform: 'none',
                         boxShadow: 'none',
-                        '&:hover': { background: '#a97563', boxShadow: 'none' },
+                        '&:hover': { background: '#001f3f', boxShadow: 'none' },
                       }}
                       onClick={() => presentear(presente)}
                     >
