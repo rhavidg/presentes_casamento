@@ -3,7 +3,11 @@ import './App.css';
 import ramo from './assets/ramo.png';
 import noivo from './assets/noivo.jpg';
 import noiva from './assets/noiva.jpg';
-import recepcao from './assets/recepcao.png';
+import recepcao from './assets/recepcao.jpg';
+import Slide1 from './assets/Slide1.jpg';
+import Slide2 from './assets/Slide2.jpg';
+import Slide3 from './assets/Slide3.jpg';
+import Slide4 from './assets/Slide4.png';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -48,7 +52,7 @@ function App() {
   const translations = {
     pt: {
       welcome:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non pulvinar lorem, sit amet lacinia dui. Suspendisse potenti. Donec congue dapibus mi. Fusce tempor ex id luctus varius. Maecenas ac lorem non sapien tincidunt interdum vel eget neque. Praesent tempus nunc gravida odio euismod.',
+        'Sejam bem-vindos ao nosso sonho! No dia 29 de agosto, cercados pelo verde da natureza e sob a luz do entardecer, vamos dar o passo mais importante das nossas vidas. Escolhemos cada detalhe com muito carinho e estamos ansiosos para compartilha-los com as pessoas que mais amamos. Aguardamos vocês, Morganna & Rafael',
       countdown: 'CONTAGEM REGRESSIVA',
       days: 'DIAS',
       hours: 'HORAS',
@@ -56,10 +60,10 @@ function App() {
       seconds: 'SEGUNDOS',
       couple: 'O CASAL',
       coupleText:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non pulvinar lorem, sit amet lacinia dui. Suspendisse potenti. Donec congue dapibus mi. Fusce tempor ex id luctus varius. Maecenas ac lorem non sapien tincidunt interdum vel eget neque. Praesent tempus nunc gravida odio euismod, quis fermentum ipsum sollicitudin. Donec sed nibh vestibulum, mollis diam a, pretium magna. Donec sit amet fermentum urna. Integer sit amet arcu a justo pretium aliquet. Curabitur facilisis sed lacus ut fringilla. Vestibulum eleifend enim eu justo elementum vestibulum. Donec scelerisque diam nunc, eget iaculis nisi aliquam non.',
+        'Esta história de amor nasceu em uma pista de dança, em um casamento, e cresceu apesar da distância. Com paciência, respeito e amor mútuo, nos demos conta de que queríamos passar o resto de nossas vidas juntos. O brilho intenso e apaixonado em nossos olhos nos lembra o porquê de termos chegado tão longe.',
       reception: 'RECEPÇÃO',
       receptionText:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non pulvinar lorem, sit amet lacinia dui. Suspendisse potenti. Donec congue dapibus mi. Fusce tempor ex id luctus varius. Maecenas ac lorem non sapien tincidunt interdum vel eget neque. Praesent tempus nunc gravida odio euismod, quis fermentum ipsum sollicitudin.',
+        'O casal convida para recepção no dia 29 de agosto de 2026, às 15 horas e 30 minutos, no Recanto Pampulha (Av. Otacílio Negrão de Lima, n.º 7.630, Bairro Pampulha, Belo Horizonte, Minas Gerais, Brasil).',
       gifts: 'LISTA DE PRESENTES',
       giftButton: 'Presentear',
       weddingPlace:
@@ -69,7 +73,7 @@ function App() {
 
     es: {
       welcome:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non pulvinar lorem, sit amet lacinia dui. Suspendisse potenti. Donec congue dapibus mi. Fusce tempor ex id luctus varius. Maecenas ac lorem non sapien tincidunt interdum vel eget neque. Praesent tempus nunc gravida odio euismod.',
+        '¡Sean bienvenidos a nuestro sueño! El día 29 de agosto, rodeados por el verde de la naturaleza y bajo la luz del atardecer, vamos a dar el paso más importante de nuestras vidas. Escogimos cada detalle con mucho cariño y estamos ansiosos por compartirlos con las personas que más amamos. Los esperamos, Morganna & Rafael',
       countdown: 'CUENTA REGRESIVA',
       days: 'DÍAS',
       hours: 'HORAS',
@@ -77,10 +81,10 @@ function App() {
       seconds: 'SEGUNDOS',
       couple: 'LA PAREJA',
       coupleText:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non pulvinar lorem, sit amet lacinia dui. Suspendisse potenti. Donec congue dapibus mi. Fusce tempor ex id luctus varius. Maecenas ac lorem non sapien tincidunt interdum vel eget neque. Praesent tempus nunc gravida odio euismod, quis fermentum ipsum sollicitudin. Donec sed nibh vestibulum, mollis diam a, pretium magna. Donec sit amet fermentum urna. Integer sit amet arcu a justo pretium aliquet. Curabitur facilisis sed lacus ut fringilla. Vestibulum eleifend enim eu justo elementum vestibulum. Donec scelerisque diam nunc, eget iaculis nisi aliquam non.',
+        'Esta historia de amor nació en una pista de baile, en un matrimonio, y creció a pesar de la distancia. Con paciencia, respeto y amor mutuo nos dimos cuenta que queriamos pasar el resto de la vida juntos. El brillo intenso y apasionado en nuestros ojos nos recuerda por qué hemos llegado tan lejos.',
       reception: 'RECEPCIÓN',
       receptionText:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non pulvinar lorem, sit amet lacinia dui. Suspendisse potenti. Donec congue dapibus mi. Fusce tempor ex id luctus varius. Maecenas ac lorem non sapien tincidunt interdum vel eget neque. Praesent tempus nunc gravida odio euismod, quis fermentum ipsum sollicitudin.',
+        'La pareja los invita a la recepción el día 29 de agosto de 2026, a las 15 horas e 30 minutos, no Recanto Pampulha (Av. Otacílio Negrão de Lima, n.º 7.630, Barrio Pampulha, Belo Horizonte, Minas Gerais, Brasil).',
       gifts: 'LISTA DE REGALOS',
       giftButton: 'Regalar',
       weddingPlace:
@@ -128,18 +132,6 @@ function App() {
     return () => clearInterval(timer);
   }, []);
 
-  const styles = {
-    slide: {
-      height: '300px',
-      background: '#fff',
-      color: '#333',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      fontSize: '24px',
-      borderRadius: '12px',
-    },
-  };
   const presentes = [
     {
       id: 1,
@@ -263,13 +255,27 @@ function App() {
           loop={true}
         >
           <SwiperSlide>
-            <div style={styles.slide}>Slide 1</div>
+            <div className="slide-container">
+              <img src={Slide1} alt="Slide 1" className="slide-image" />
+            </div>
           </SwiperSlide>
+
           <SwiperSlide>
-            <div style={styles.slide}>Slide 2</div>
+            <div className="slide-container">
+              <img src={Slide2} alt="Slide 2" className="slide-image" />
+            </div>
           </SwiperSlide>
+
           <SwiperSlide>
-            <div style={styles.slide}>Slide 3</div>
+            <div className="slide-container">
+              <img src={Slide3} alt="Slide 3" className="slide-image" />
+            </div>
+          </SwiperSlide>
+
+          <SwiperSlide>
+            <div className="slide-container">
+              <img src={Slide4} alt="Slide 4" className="slide-image" />
+            </div>
           </SwiperSlide>
         </Swiper>
       </div>
