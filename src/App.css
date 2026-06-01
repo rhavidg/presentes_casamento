@@ -49,6 +49,7 @@ body {
   justify-content: center;
 }
 .welcome-text p {
+  white-space: pre-line;
   font-size: 16px;
   margin-top: 20px;
   color: #333;
@@ -196,6 +197,7 @@ body {
   }
 }
 .title {
+  white-space: pre-line;
   font-size: 26px;
   color: #001f3f;
   margin-top: -50px;
@@ -331,16 +333,19 @@ body {
 }
 @media screen and (max-width: 320px) {
   .recepcao .recepcao-text p {
+    margin-top: -170px !important;
     width: 80vw;
   }
 }
 @media screen and (max-width: 375px) {
   .recepcao .recepcao-text p {
+    margin-top: -100px;
     width: 80vw;
   }
 }
 @media screen and (max-width: 425px) {
   .recepcao .recepcao-text p {
+    margin-top: -140px;
     width: 80vw;
   }
 }
@@ -350,12 +355,15 @@ body {
   object-fit: cover;
   margin-top: 10px;
   @media screen and (max-width: 320px) {
+    margin-top: -180px;
     object-fit: contain;
   }
   @media screen and (max-width: 375px) {
+    margin-top: -180px;
     object-fit: contain;
   }
   @media screen and (max-width: 425px) {
+    margin-top: -180px;
     object-fit: contain;
   }
 }
@@ -402,7 +410,7 @@ body {
 .carousel {
   width: 100%;
   max-width: 700px;
-  margin: 0 auto;
+  margin: 30px auto 0px auto;
   position: relative;
 }
 .slide-container {
