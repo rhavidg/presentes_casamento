@@ -36,6 +36,7 @@ import brasilFlag from './assets/brasil.jpg';
 import colombiaFlag from './assets/colombia.jpg';
 import { Modal } from 'antd';
 import MusicPlayer from './components/MusicPlayer/MusicPlayer';
+import WalletAsaas from './components/WalletAsaas/WalletAsaas';
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -120,6 +121,19 @@ function App() {
 
   function moneyToStripe(value) {
     return Math.round(Number(value.replace('R$', '').replace(/\./g, '').replace(',', '.')) * 100);
+  }
+
+  function formatAsaasValue(value) {
+    if (typeof value === 'number') {
+      return Number(value.toFixed(2));
+    }
+
+    return Number(
+      value
+        .replace(/[^\d,]/g, '')
+        .replace(/\./g, '')
+        .replace(',', '.'),
+    );
   }
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
@@ -481,7 +495,8 @@ function App() {
               </FormControl>
               {paymentForm === 'card' && (
                 <div className="stripe">
-                  <WalletStripe amount={moneyToStripe(selectedItem.preco)} />
+                  {/* <WalletStripe amount={moneyToStripe(selectedItem.preco)} /> */}
+                  <WalletAsaas amount={formatAsaasValue(selectedItem.preco)} />
                 </div>
               )}
               {paymentForm === 'pix' && (
