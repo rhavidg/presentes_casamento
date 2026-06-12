@@ -14,7 +14,7 @@ import {
   CircularProgress,
 } from '@mui/material';
 
-export default function WalletAsaas({ amount }) {
+export default function WalletAsaas({ amount, productName, onPaymentSuccess }) {
   const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({
@@ -50,7 +50,7 @@ export default function WalletAsaas({ amount }) {
 
       const response = await axios.post('http://localhost:3333/pagamento-cartao', {
         value: amount,
-
+        productName: productName,
         installments: Number(form.installments),
 
         customer: {
@@ -80,7 +80,11 @@ export default function WalletAsaas({ amount }) {
 
       console.log(response.data);
 
-      alert('Pagamento criado com sucesso!');
+      if (onPaymentSuccess) {
+        onPaymentSuccess();
+      }
+
+      alert('Pagamento realizado com sucesso!');
     } catch (error) {
       console.error(error);
 
