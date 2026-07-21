@@ -1,54 +1,71 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './MusicPlayer.css';
+import React, { useEffect, useRef, useState } from "react";
+import "./MusicPlayer.css";
 
 function MusicPlayer() {
   const audioRef = useRef(null);
+  const startedRef = useRef(false);
 
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
-    const startMusic = async () => {
-      try {
-        await audioRef.current.play();
-        setPlaying(true);
+    const audio = audioRef.current;
 
-        window.removeEventListener('scroll', startMusic);
-        window.removeEventListener('click', startMusic);
+    const onPlay = () => setPlaying(true);
+    const onPause = () => setPlaying(false);
+
+    audio.addEventListener("play", onPlay);
+    audio.addEventListener("pause", onPause);
+
+    const startMusic = async () => {
+      if (!audio || startedRef.current || !audio.paused) return;
+
+      startedRef.current = true;
+
+      try {
+        await audio.play();
       } catch (err) {
-        console.log('Erro ao tocar música:', err);
+        startedRef.current = false;
+        console.log("Erro ao tocar música:", err);
       }
     };
 
-    window.addEventListener('scroll', startMusic);
-    window.addEventListener('click', startMusic);
+    window.addEventListener("click", startMusic, { once: true });
+    window.addEventListener("scroll", startMusic, { once: true });
 
     return () => {
-      window.removeEventListener('scroll', startMusic);
-      window.removeEventListener('click', startMusic);
+      audio.removeEventListener("play", onPlay);
+      audio.removeEventListener("pause", onPause);
+
+      window.removeEventListener("click", startMusic);
+      window.removeEventListener("scroll", startMusic);
     };
   }, []);
 
   const toggleMusic = async () => {
-    if (!audioRef.current) return;
+    const audio = audioRef.current;
 
-    if (audioRef.current.paused) {
-      await audioRef.current.play();
-      setPlaying(true);
-    } else {
-      audioRef.current.pause();
-      setPlaying(false);
+    if (!audio) return;
+
+    try {
+      if (audio.paused) {
+        await audio.play();
+      } else {
+        audio.pause();
+      }
+    } catch (err) {
+      console.log("Erro ao controlar música:", err);
     }
   };
 
   return (
     <>
       <audio ref={audioRef} loop>
-        <source src="/i_got_you.mp3" type="audio/mpeg" />
+        <source src="musica.mp3" type="audio/mpeg" />
       </audio>
 
       <div className="music-player-mini">
         <button className="play-button" onClick={toggleMusic}>
-          {playing ? '⏸' : '▶'}
+          {playing ? "⏸" : "▶"}
         </button>
 
         <span className="music-name">Morganna & Rafael</span>
