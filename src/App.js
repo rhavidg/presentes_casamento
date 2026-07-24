@@ -31,6 +31,7 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  Checkbox,
 } from "@mui/material";
 import WalletStripe from "./components/WalletStripe/WalletStripe";
 import brasilFlag from "./assets/brasil.jpg";
@@ -51,6 +52,16 @@ function App() {
   const [modalPresente, setModalPresente] = useState(false);
   const [paymentForm, setPaymentForm] = useState("pix");
   const [visibleItems, setVisibleItems] = useState(6);
+  const [categoriasSelecionadas, setCategoriasSelecionadas] = useState([]);
+
+  const toggleCategoria = (categoria) => {
+    setCategoriasSelecionadas((prev) =>
+      prev.includes(categoria)
+        ? prev.filter((c) => c !== categoria)
+        : [...prev, categoria],
+    );
+    setVisibleItems(6);
+  };
 
   const translations = {
     pt: {
@@ -156,6 +167,10 @@ function App() {
   const presentes = [
     {
       id: 1,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
       nome: {
         pt: "Conjunto de Copos Long Drink Nadir Opera 360 ml",
         es: "Juego de vasos largos Nadir Opera, 360 ml",
@@ -164,96 +179,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/61FtzwngS0L._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
       id: 2,
-      nome: {
-        pt: "Conjunto de Potes pra noiva parar de roubar os potes alheios",
-        es: "Juego de vasijas para evitar que la novia robe las vasijas de otras personas.",
+      categoria: {
+        pt: "Divertidos",
+        es: "Divertidos",
       },
-      preco: "R$55,00",
-      imagem:
-        "https://m.media-amazon.com/images/I/61UiGQhiNOL._AC_SY300_SX300_QL70_ML2_.jpg",
-    },
-
-    {
-      id: 3,
-      nome: {
-        pt: "Lixeira para banheiro",
-        es: "Papelera del baño",
-      },
-      preco: "R$58,30",
-      imagem:
-        "https://m.media-amazon.com/images/I/31Bq-ckBoPL._SX342_SY445_QL70_ML2_.jpg",
-    },
-
-    {
-      id: 4,
-      nome: {
-        pt: "Manta",
-        es: "Frazada",
-      },
-      preco: "R$66,00",
-      imagem:
-        "https://m.media-amazon.com/images/I/51taaNnkAgS._AC_SY300_SX300_QL70_ML2_.jpg",
-    },
-
-    {
-      id: 5,
-      nome: {
-        pt: "Afiador de facas",
-        es: "Afilador de cuchillos",
-      },
-      preco: "R$89,10",
-      imagem:
-        "https://m.media-amazon.com/images/I/618GkjY9CGL._AC_SY300_SX300_QL70_ML2_.jpg",
-    },
-
-    {
-      id: 6,
-      nome: {
-        pt: "Lixeira para cozinha",
-        es: "Cubo de basura de cocina",
-      },
-      preco: "R$99,00",
-      imagem:
-        "https://m.media-amazon.com/images/I/31PeUhiUIRL._AC_SY300_SX300_QL70_ML2_.jpg",
-    },
-
-    {
-      id: 7,
-      nome: {
-        pt: "Doação para a fundação de Rafa",
-        es: "Donación a la fundación de Rafa",
-      },
-      preco: "R$100,00",
-      imagem: ong,
-    },
-
-    {
-      id: 8,
-      nome: {
-        pt: "Frigideira Antiaderente",
-        es: "Sartén antiadherente",
-      },
-      preco: "R$107,69",
-      imagem:
-        "https://m.media-amazon.com/images/I/51-jW6qP7YL._AC_SY300_SX300_QL70_ML2_.jpg",
-    },
-
-    {
-      id: 9,
-      nome: {
-        pt: "Suporte para bolo",
-        es: "Soporte para pasteles",
-      },
-      preco: "R$108,78",
-      imagem:
-        "https://m.media-amazon.com/images/I/51F3tZyNaTL._AC_SY300_SX300_QL70_ML2_.jpg",
-    },
-
-    {
-      id: 10,
       nome: {
         pt: "Cueca sexy para a noite de núpcia",
         es: "Lencería sexy para la noche de bodas.",
@@ -262,9 +193,12 @@ function App() {
       imagem:
         "https://media.istockphoto.com/id/1167387292/pt/vetorial/under-18-years-sign-mark-vector-illustration.jpg?s=612x612&w=0&k=20&c=l2WY_KgzGitSGya52701em2hC0aAxBrxWnJQS7hZfNg=",
     },
-
     {
-      id: 11,
+      id: 3,
+      categoria: {
+        pt: "Eletrodomésticos",
+        es: "Electrodomésticos",
+      },
       nome: {
         pt: "Panela de Arroz Elétrica",
         es: "Olla arrocera eléctrica",
@@ -273,9 +207,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/51mK0ThSiRL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 12,
+      id: 4,
+      categoria: {
+        pt: "Lua de mel e experiências",
+        es: "Luna de miel y experiencias",
+      },
       nome: {
         pt: "Cota Operação Lua de Mel",
         es: "Cuota de Operación Luna de Miel",
@@ -284,9 +221,12 @@ function App() {
       imagem:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbUHnjdt97VkBITpCiYWQkbrg6oq_XFsC4vQ&s",
     },
-
     {
-      id: 13,
+      id: 5,
+      categoria: {
+        pt: "Lua de mel e experiências",
+        es: "Luna de miel y experiencias",
+      },
       nome: {
         pt: "Aluguel de pranchas de surfe",
         es: "Alquiler de tablas de surf",
@@ -295,9 +235,12 @@ function App() {
       imagem:
         "https://adaptive-images.uooucdn.com.br/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a150-ofyzsg/pv/d9/12/e1/d15e7696e2a4238a4cd232af66.jpg",
     },
-
     {
-      id: 14,
+      id: 6,
+      categoria: {
+        pt: "Lua de mel e experiências",
+        es: "Luna de miel y experiencias",
+      },
       nome: {
         pt: "City tour com guia local",
         es: "Visita guiada por la ciudad con un guía local luna de miel",
@@ -306,9 +249,12 @@ function App() {
       imagem:
         "https://cdn6.campograndenews.com.br/uploads/noticias/2021/09/02/cbcd5abe26978aa22b11f4115f9606402f188110.jpg",
     },
-
     {
-      id: 15,
+      id: 7,
+      categoria: {
+        pt: "Cama, mesa e banho",
+        es: "Cama, mesa y baño",
+      },
       nome: {
         pt: "Jogo Toalha de Banho Azul 4 Peças",
         es: "Juego de toallas de baño azules, 4 piezas",
@@ -317,9 +263,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/61tBVVGk08L._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 16,
+      id: 8,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
       nome: {
         pt: "Jogo Para Churrasco Polywood Inox 3 Peças",
         es: "Juego de barbacoa de acero inoxidable Polywood, 3 piezas",
@@ -328,9 +277,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/81NUeCtVs0L._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 17,
+      id: 9,
+      categoria: {
+        pt: "Lua de mel e experiências",
+        es: "Luna de miel y experiencias",
+      },
       nome: {
         pt: "Aluguel de Stand-up Paddle",
         es: "Alquiler de tablas de paddle surf",
@@ -339,9 +291,12 @@ function App() {
       imagem:
         "https://decathlonstore.vtexassets.com/unsafe/fit-in/628x628/center/middle/https%3A%2F%2Fdecathlonpro.vtexassets.com%2Farquivos%2Fids%2F165874305%2Fpack-allround-sup-106-no-size-azul-unico1.jpg%3Fv%3D638742939016400000",
     },
-
     {
-      id: 18,
+      id: 10,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
       nome: {
         pt: "Porta Doce de Porcelana 2 Níveis",
         es: "Bombonera de porcelana de dos niveles",
@@ -350,9 +305,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/61D6aAacS8L._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 19,
+      id: 11,
+      categoria: {
+        pt: "Divertidos",
+        es: "Divertidos",
+      },
       nome: {
         pt: "5 meses de streaming de filmes para o casal",
         es: "Cinco meses de streaming de películas para la pareja.",
@@ -361,9 +319,26 @@ function App() {
       imagem:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8_jQ6itKkchVMwRoaAYvYlQ0VmEIN79NrAA&s",
     },
-
     {
-      id: 20,
+      id: 12,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
+      nome: {
+        pt: "Conjunto de Potes pra noiva parar de roubar os potes alheios",
+        es: "Juego de vasijas para evitar que la novia robe las vasijas de otras personas.",
+      },
+      preco: "R$55,00",
+      imagem:
+        "https://m.media-amazon.com/images/I/61UiGQhiNOL._AC_SY300_SX300_QL70_ML2_.jpg",
+    },
+    {
+      id: 13,
+      categoria: {
+        pt: "Divertidos",
+        es: "Divertidos",
+      },
       nome: {
         pt: "Garanta novos filhos para os pais de planta",
         es: "Nuevas plantas para la pareja",
@@ -372,9 +347,12 @@ function App() {
       imagem:
         "https://images.unsplash.com/photo-1543459176-4426b37223ba?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHBsYW50c3xlbnwwfHwwfHx8MA%3D%3D",
     },
-
     {
-      id: 21,
+      id: 14,
+      categoria: {
+        pt: "Decoração",
+        es: "Decoración",
+      },
       nome: {
         pt: "Flores para Decoração",
         es: "Flores para decoración",
@@ -383,9 +361,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/71NrDRiedDL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 22,
+      id: 15,
+      categoria: {
+        pt: "Lua de mel e experiências",
+        es: "Luna de miel y experiencias",
+      },
       nome: {
         pt: "Drink para os noivos na Lua de Mel",
         es: "Unos tragos para los recién casados ​​en su luna de miel.",
@@ -394,9 +375,12 @@ function App() {
       imagem:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTi-LCfmD4-eebu3wwBJc5hj6tl64GI6ZQV4Q&s",
     },
-
     {
-      id: 23,
+      id: 16,
+      categoria: {
+        pt: "Divertidos",
+        es: "Divertidos",
+      },
       nome: {
         pt: "Aula de culinária pro casal não morrer de fome",
         es: "Clase de cocina para que la pareja no muera de hambre.",
@@ -405,9 +389,12 @@ function App() {
       imagem:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3xHJ-i6F5n0iuu6wnHtwe_rGSwz8mFEHELA&s",
     },
-
     {
-      id: 24,
+      id: 17,
+      categoria: {
+        pt: "Contribuição",
+        es: "Contribuciones",
+      },
       nome: {
         pt: "Doação para a fundação de Rafa",
         es: "Donación a la fundación de Rafa",
@@ -415,9 +402,12 @@ function App() {
       preco: "R$200,00",
       imagem: ong,
     },
-
     {
-      id: 25,
+      id: 18,
+      categoria: {
+        pt: "Contribuição",
+        es: "Contribuciones",
+      },
       nome: {
         pt: "Ajuda para creche de Alice durante a lua de mel",
         es: "Ayuda con el cuidado de Alice durante la luna de miel.",
@@ -426,9 +416,12 @@ function App() {
       imagem:
         "https://img.nsctotal.com.br/wp-content/uploads/2024/06/Hotel-para-gatos-em-Florianopolis-tem-playground-academia-e-tratamento-5-estrelas-7.jpg",
     },
-
     {
-      id: 26,
+      id: 19,
+      categoria: {
+        pt: "Eletrodomésticos",
+        es: "Electrodomésticos",
+      },
       nome: {
         pt: "Mixer 3 em 1 Vermelho",
         es: "Batidora 3 en 1, roja",
@@ -437,9 +430,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/411dxRUdznL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 27,
+      id: 20,
+      categoria: {
+        pt: "Eletrodomésticos",
+        es: "Electrodomésticos",
+      },
       nome: {
         pt: "Aspirador de Pó Vertical",
         es: "Aspiradora vertical",
@@ -448,9 +444,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/510P6tjT3ZL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 28,
+      id: 21,
+      categoria: {
+        pt: "Cama, mesa e banho",
+        es: "Cama, mesa y baño",
+      },
       nome: {
         pt: "Jogo de acessórios para banheiro",
         es: "Juego de accesorios de baño",
@@ -459,9 +458,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/51EUPpkgdeL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 29,
+      id: 22,
+      categoria: {
+        pt: "Cama, mesa e banho",
+        es: "Cama, mesa y baño",
+      },
       nome: {
         pt: "Jogo de Banho Buddemeyer",
         es: "Juego de baño Buddemeyer",
@@ -470,9 +472,26 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/61T2RHNR8DL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 30,
+      id: 23,
+      categoria: {
+        pt: "Outros",
+        es: "Otros",
+      },
+      nome: {
+        pt: "Lixeira para banheiro",
+        es: "Papelera del baño",
+      },
+      preco: "R$58,30",
+      imagem:
+        "https://m.media-amazon.com/images/I/31Bq-ckBoPL._SX342_SY445_QL70_ML2_.jpg",
+    },
+    {
+      id: 24,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
       nome: {
         pt: "Jogo de copos - Tool Box",
         es: "Juego de vasos",
@@ -482,7 +501,11 @@ function App() {
         "https://tbox.vtexassets.com/arquivos/ids/164994/245111_0.jpg?v=638749039350430000",
     },
     {
-      id: 31,
+      id: 25,
+      categoria: {
+        pt: "Lua de mel e experiências",
+        es: "Luna de miel y experiencias",
+      },
       nome: {
         pt: "Cota para perrengues na lua de mel",
         es: "Cuota para imprevistos en la luna de miel",
@@ -491,9 +514,12 @@ function App() {
       imagem:
         "https://static.vecteezy.com/ti/vetor-gratis/t2/8084989-dinheiro-saco-e-pilha-de-moeda-de-ouro-vetor.jpg",
     },
-
     {
-      id: 32,
+      id: 26,
+      categoria: {
+        pt: "Eletrodomésticos",
+        es: "Electrodomésticos",
+      },
       nome: {
         pt: "Cafeteira Elétrica",
         es: "Cafetera eléctrica",
@@ -502,9 +528,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/71cM7xwJqXL._AC_SX300_SY300_QL70_ML2_.jpg",
     },
-
     {
-      id: 33,
+      id: 27,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
       nome: {
         pt: "Conjunto de Assadeiras",
         es: "Juego de fuentes para horno",
@@ -513,9 +542,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/51M7Bcnch1L._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 34,
+      id: 28,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
       nome: {
         pt: "Jogo de Taças para Vinho",
         es: "Juego de copas para vino",
@@ -524,9 +556,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/61HrTUVvICL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 35,
+      id: 29,
+      categoria: {
+        pt: "Outros",
+        es: "Otros",
+      },
       nome: {
         pt: "Kit para primeiros socorros domésticos",
         es: "Kit de primeros auxilios para el hogar",
@@ -535,9 +570,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/61RY1rCmxmL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 36,
+      id: 30,
+      categoria: {
+        pt: "Cama, mesa e banho",
+        es: "Cama, mesa y baño",
+      },
       nome: {
         pt: "Jogo de Lençol Casal",
         es: "Juego de sábanas matrimonial",
@@ -546,9 +584,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/61Uy+uPEp6L._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 37,
+      id: 31,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
       nome: {
         pt: "Aparelho de Jantar 20 Peças",
         es: "Vajilla de 20 piezas",
@@ -557,9 +598,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/61zFo6M5WLL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 38,
+      id: 32,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
       nome: {
         pt: "Jogo de Panelas Antiaderente",
         es: "Juego de ollas antiadherentes",
@@ -568,9 +612,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/5131vjv1suL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 39,
+      id: 33,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
       nome: {
         pt: "Kit para café da manhã dos noivos",
         es: "Kit para desayuno de los novios",
@@ -579,9 +626,26 @@ function App() {
       imagem:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkfkpWo-BGO6shcT7ut0MqM0YFwZzfLr2Ttg&s",
     },
-
     {
-      id: 40,
+      id: 34,
+      categoria: {
+        pt: "Cama, mesa e banho",
+        es: "Cama, mesa y baño",
+      },
+      nome: {
+        pt: "Manta",
+        es: "Frazada",
+      },
+      preco: "R$66,00",
+      imagem:
+        "https://m.media-amazon.com/images/I/51taaNnkAgS._AC_SY300_SX300_QL70_ML2_.jpg",
+    },
+    {
+      id: 35,
+      categoria: {
+        pt: "Eletrodomésticos",
+        es: "Electrodomésticos",
+      },
       nome: {
         pt: "Ventilador",
         es: "Ventilador",
@@ -590,9 +654,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/61o7Q8hq2zL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 41,
+      id: 36,
+      categoria: {
+        pt: "Cama, mesa e banho",
+        es: "Cama, mesa y baño",
+      },
       nome: {
         pt: "Jogo de Toalhas Premium",
         es: "Juego de toallas premium",
@@ -600,9 +667,12 @@ function App() {
       preco: "R$326,70",
       imagem: "https://m.media-amazon.com/images/I/611jKTcW9SL._AC_SX679_.jpg",
     },
-
     {
-      id: 42,
+      id: 37,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
       nome: {
         pt: "Kit churrasco para o mestre da grelha",
         es: "Kit de parrilla para el maestro de la parrilla",
@@ -611,9 +681,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/71DrcY44B4L._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 43,
+      id: 38,
+      categoria: {
+        pt: "Lua de mel e experiências",
+        es: "Luna de miel y experiencias",
+      },
       nome: {
         pt: "Passeio romântico na lua de mel",
         es: "Paseo romántico en la luna de miel",
@@ -622,9 +695,12 @@ function App() {
       imagem:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXqPWgIWlx4IVEf29XnD21ZNz5Q2RvlGTh6A&s",
     },
-
     {
-      id: 44,
+      id: 39,
+      categoria: {
+        pt: "Eletrodomésticos",
+        es: "Electrodomésticos",
+      },
       nome: {
         pt: "Ferro de Passar",
         es: "Plancha",
@@ -633,9 +709,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/71-L8b9C7lL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 45,
+      id: 40,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
       nome: {
         pt: "Kit para noites de pizza em casa",
         es: "Kit para noches de pizza en casa",
@@ -644,9 +723,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/610Uuuyn7mL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 46,
+      id: 41,
+      categoria: {
+        pt: "Eletrodomésticos",
+        es: "Electrodomésticos",
+      },
       nome: {
         pt: "Liquidificador",
         es: "Licuadora",
@@ -655,9 +737,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/51ddQ2FJr-L._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 47,
+      id: 42,
+      categoria: {
+        pt: "Outros",
+        es: "Otros",
+      },
       nome: {
         pt: "Kit organização da casa",
         es: "Kit de organización del hogar",
@@ -666,9 +751,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/71C0EPEwHcL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 48,
+      id: 43,
+      categoria: {
+        pt: "Eletrodomésticos",
+        es: "Electrodomésticos",
+      },
       nome: {
         pt: "Batedeira",
         es: "Batidora",
@@ -676,9 +764,12 @@ function App() {
       preco: "R$435,60",
       imagem: "https://m.media-amazon.com/images/I/51aQCAmwRLL._AC_SX679_.jpg",
     },
-
     {
-      id: 49,
+      id: 44,
+      categoria: {
+        pt: "Eletrodomésticos",
+        es: "Electrodomésticos",
+      },
       nome: {
         pt: "Micro-ondas",
         es: "Microondas",
@@ -687,9 +778,26 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/51fyuoyD1sL._AC_SX342_SY445_QL70_ML2_.jpg",
     },
-
     {
-      id: 50,
+      id: 45,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
+      nome: {
+        pt: "Afiador de facas",
+        es: "Afilador de cuchillos",
+      },
+      preco: "R$89,10",
+      imagem:
+        "https://m.media-amazon.com/images/I/618GkjY9CGL._AC_SY300_SX300_QL70_ML2_.jpg",
+    },
+    {
+      id: 46,
+      categoria: {
+        pt: "Contribuição",
+        es: "Contribuciones",
+      },
       nome: {
         pt: "Ajuda para mobiliar o lar",
         es: "Ayuda para amueblar el hogar",
@@ -698,9 +806,12 @@ function App() {
       imagem:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlJ0WrL2jREcsd9NRzul464zPaSl0wLH7yFA&s",
     },
-
     {
-      id: 51,
+      id: 47,
+      categoria: {
+        pt: "Eletrodomésticos",
+        es: "Electrodomésticos",
+      },
       nome: {
         pt: "Air Fryer",
         es: "Freidora de aire",
@@ -709,9 +820,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/81RLJR4NbeL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 52,
+      id: 48,
+      categoria: {
+        pt: "Eletrônicos",
+        es: "Electrónicos",
+      },
       nome: {
         pt: "Smart Speaker",
         es: "Altavoz inteligente",
@@ -719,9 +833,12 @@ function App() {
       preco: "R$605,00",
       imagem: "https://m.media-amazon.com/images/I/71nWVFteisL._AC_SY606_.jpg",
     },
-
     {
-      id: 53,
+      id: 49,
+      categoria: {
+        pt: "Eletrodomésticos",
+        es: "Electrodomésticos",
+      },
       nome: {
         pt: "Aspirador Robô",
         es: "Robot aspirador",
@@ -730,9 +847,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/71ti8eTWLQL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 54,
+      id: 50,
+      categoria: {
+        pt: "Lua de mel e experiências",
+        es: "Luna de miel y experiencias",
+      },
       nome: {
         pt: "Jantar romântico completo",
         es: "Cena romántica completa",
@@ -741,9 +861,12 @@ function App() {
       imagem:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf3tHWwzIdNCCi_iTBpmBKBv8R-556l4MEoQ&s",
     },
-
     {
-      id: 55,
+      id: 51,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
       nome: {
         pt: "Máquina de Café Espresso",
         es: "Máquina de café espresso",
@@ -752,9 +875,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/71FXFo4kYiL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 56,
+      id: 52,
+      categoria: {
+        pt: "Eletrónicos",
+        es: "Electrónicos",
+      },
       nome: {
         pt: "Smart TV",
         es: "Smart TV",
@@ -763,9 +889,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/61tCoc7NunL._AC_SX300_SY300_QL70_ML2_.jpg",
     },
-
     {
-      id: 57,
+      id: 53,
+      categoria: {
+        pt: "Contribuição",
+        es: "Contribuciones",
+      },
       nome: {
         pt: "Ajuda para entrada do apartamento",
         es: "Ayuda para la entrada del apartamento",
@@ -774,9 +903,12 @@ function App() {
       imagem:
         "https://cf.bstatic.com/xdata/images/hotel/max1024x768/602045013.jpg?k=28d8c0a0f070c6f98746615ce35f7b27dbc0cbc70fe7b865009e3f4f3a4e06d0&o=",
     },
-
     {
-      id: 58,
+      id: 54,
+      categoria: {
+        pt: "Eletrodomésticos",
+        es: "Electrodomésticos",
+      },
       nome: {
         pt: "Geladeira",
         es: "Refrigerador",
@@ -785,9 +917,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/41EIiO9FP8L._AC_SX342_SY445_QL70_ML2_.jpg",
     },
-
     {
-      id: 59,
+      id: 55,
+      categoria: {
+        pt: "Eletrodomésticos",
+        es: "Electrodomésticos",
+      },
       nome: {
         pt: "Máquina de Lavar",
         es: "Lavadora",
@@ -796,9 +931,26 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/51j31MMQXrL._AC_SX342_SY445_QL70_ML2_.jpg",
     },
-
     {
-      id: 60,
+      id: 56,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
+      nome: {
+        pt: "Lixeira para cozinha",
+        es: "Cubo de basura de cocina",
+      },
+      preco: "R$99,00",
+      imagem:
+        "https://m.media-amazon.com/images/I/31PeUhiUIRL._AC_SY300_SX300_QL70_ML2_.jpg",
+    },
+    {
+      id: 57,
+      categoria: {
+        pt: "Lua de mel e experiências",
+        es: "Luna de miel y experiencias",
+      },
       nome: {
         pt: "Lua de mel dos sonhos",
         es: "La luna de miel de sus sueños",
@@ -808,7 +960,11 @@ function App() {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTpQikuS-XWmzlx-_WADqsz1f31Rm1Mlzduw&s",
     },
     {
-      id: 61,
+      id: 58,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
       nome: {
         pt: "Aparelho de jantar em porcelana",
         es: "Juego de vajilla de porcelana",
@@ -817,9 +973,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/71ITeD8YaZL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 62,
+      id: 59,
+      categoria: {
+        pt: "Cama, mesa e banho",
+        es: "Cama, mesa y baño",
+      },
       nome: {
         pt: "Edredom",
         es: "Edredón",
@@ -828,9 +987,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/71RDq03-uQL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 63,
+      id: 60,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
       nome: {
         pt: "Jogo de Panelas Preto - 5 Peças",
         es: "Juego de utensilios de cocina negros - 5 piezas",
@@ -839,9 +1001,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/41-M0K7tnoL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 64,
+      id: 61,
+      categoria: {
+        pt: "Eletrodomésticos",
+        es: "Electrodomésticos",
+      },
       nome: {
         pt: "Aquecedor de toalhas",
         es: "Calentador de toallas",
@@ -850,9 +1015,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/61zkHp0UY9L._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 65,
+      id: 62,
+      categoria: {
+        pt: "Eletrodomésticos",
+        es: "Electrodomésticos",
+      },
       nome: {
         pt: "Coifa de parede",
         es: "Campana extractora",
@@ -861,9 +1029,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/41utUUoXfEL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 66,
+      id: 63,
+      categoria: {
+        pt: "Lua de mel e experiências",
+        es: "Luna de miel y experiencias",
+      },
       nome: {
         pt: "Cota passagens aéreas para a Lua de Mel",
         es: "Contribucion tiquetes de avión para la luna de miel",
@@ -872,9 +1043,12 @@ function App() {
       imagem:
         "https://aquieassim.com.br/wp-content/uploads/2015/03/20150329_132539.jpg",
     },
-
     {
-      id: 67,
+      id: 64,
+      categoria: {
+        pt: "Móveis",
+        es: "Muebles",
+      },
       nome: {
         pt: "Aparador Muse",
         es: "Aparador Muse",
@@ -883,9 +1057,12 @@ function App() {
       imagem:
         "https://product-hub-prd.madeiramadeira.com.br/982929/images/eabfe303-b61a-4652-a2d5-8c715c259364naturalle1744842589200zoom.jpg?width=700&canvas=1:1&bg-color=FFF",
     },
-
     {
-      id: 68,
+      id: 65,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
       nome: {
         pt: "Faqueiro gold",
         es: "Juego de cubiertos dorados",
@@ -893,9 +1070,12 @@ function App() {
       preco: "R$1.101,10",
       imagem: "https://m.media-amazon.com/images/I/61g--PP6kpL._AC_SX679_.jpg",
     },
-
     {
-      id: 69,
+      id: 66,
+      categoria: {
+        pt: "Cama, mesa e banho",
+        es: "Cama, mesa y baño",
+      },
       nome: {
         pt: "Jogo de Lençol 300 Fios - Trosseau",
         es: "Juego de sábanas de 300 hilos - Trosseau",
@@ -904,9 +1084,25 @@ function App() {
       imagem:
         "https://lojatrousseau.vtexassets.com/arquivos/ids/327881-800-auto?v=639094482098500000&width=800&height=auto&aspect=true",
     },
-
     {
-      id: 70,
+      id: 67,
+      categoria: {
+        pt: "Contribuição",
+        es: "Contribuciones",
+      },
+      nome: {
+        pt: "Doação para a fundação de Rafa",
+        es: "Donación a la fundación de Rafa",
+      },
+      preco: "R$100,00",
+      imagem: ong,
+    },
+    {
+      id: 68,
+      categoria: {
+        pt: "Eletrodomésticos",
+        es: "Electrodomésticos",
+      },
       nome: {
         pt: "Cooktop 5 bocas - Brastemp",
         es: "Estufa de cocción de 5 quemadores - Brastemp",
@@ -915,9 +1111,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/51YMJtQrnnL._AC_SX342_SY445_QL70_ML2_.jpg",
     },
-
     {
-      id: 71,
+      id: 69,
+      categoria: {
+        pt: "Móveis",
+        es: "Muebles",
+      },
       nome: {
         pt: "Prateleira para livros",
         es: "Estante para libros",
@@ -926,9 +1125,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/71x+baFq5XL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 72,
+      id: 70,
+      categoria: {
+        pt: "Eletrónicos",
+        es: "Electrónicos",
+      },
       nome: {
         pt: "Soundbar JBL Cinema SB160",
         es: "Barra de sonido JBL Cinema SB160",
@@ -937,9 +1139,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/51n1AK9rmdL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 73,
+      id: 71,
+      categoria: {
+        pt: "Móveis",
+        es: "Muebles",
+      },
       nome: {
         pt: "Buffet 4 Portas cor Madeira Natural e Azul",
         es: "Aparador de 4 puertas en madera natural y azul.",
@@ -948,9 +1153,12 @@ function App() {
       imagem:
         "https://mezmoveis.cdn.magazord.com.br/img/2025/09/produto/2654/mescla-4-portas-azul-1.jpg?ims=fit-in/600x600/filters:fill(white)",
     },
-
     {
-      id: 74,
+      id: 72,
+      categoria: {
+        pt: "Móveis",
+        es: "Muebles",
+      },
       nome: {
         pt: "Sofá Lord",
         es: "Sofá Lord",
@@ -959,9 +1167,12 @@ function App() {
       imagem:
         "https://product-hub-prd.madeiramadeira.com.br/135639050/images/ee08c8f8-a03a-4198-b2df-aafa3c9101936f978107standardresolution.jpg?width=700&canvas=1:1&bg-color=FFF",
     },
-
     {
-      id: 75,
+      id: 73,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
       nome: {
         pt: "Chopeira 5 Litros",
         es: "Dispensador de cerveza de 5 litros",
@@ -970,9 +1181,12 @@ function App() {
       imagem:
         "https://images.tcdn.com.br/img/img_prod/1288719/chopeira_termica_portatil_about_beer_5_litros_7_1_13ba2eb1f4d2b6cba8994d5218051c09.jpg",
     },
-
     {
-      id: 76,
+      id: 74,
+      categoria: {
+        pt: "Eletrodomésticos",
+        es: "Electrodomésticos",
+      },
       nome: {
         pt: "Forno a Gás de Embutir Brastemp",
         es: "Horno de gas empotrable Brastemp",
@@ -981,9 +1195,12 @@ function App() {
       imagem:
         "https://brastemp.vtexassets.com/arquivos/ids/271155-800-auto?v=638997598543270000&width=800&height=auto&aspect=true",
     },
-
     {
-      id: 77,
+      id: 75,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
       nome: {
         pt: "Panela Oval Signature - Le Creuset",
         es: "Sartén Ovalada Signature - Le Creuset",
@@ -992,9 +1209,12 @@ function App() {
       imagem:
         "https://www.lecreuset.com.br/dw/image/v2/BDRT_PRD/on/demandware.static/-/Sites-le-creuset-br-master/default/dwe9d467ec/images/produto-lecreuset-panela-oval-chambray.png?sw=650&sh=650&sm=fit",
     },
-
     {
-      id: 78,
+      id: 76,
+      categoria: {
+        pt: "Eletrónicos",
+        es: "Electrónicos",
+      },
       nome: {
         pt: "Ar Condicionado Split Inverter 12000 BTUs",
         es: "Aire acondicionado split inverter de 12000 BTU",
@@ -1003,9 +1223,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/51IO1FC6r5L._AC_SX342_SY445_QL70_ML2_.jpg",
     },
-
     {
-      id: 79,
+      id: 77,
+      categoria: {
+        pt: "Eletrónicos",
+        es: "Electrónicos",
+      },
       nome: {
         pt: 'Smart TV 50" UHD 4K',
         es: "Televisor inteligente UHD 4K de 50 pulgadas",
@@ -1014,9 +1237,26 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/61Hj1b864XL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 80,
+      id: 78,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
+      nome: {
+        pt: "Frigideira Antiaderente",
+        es: "Sartén antiadherente",
+      },
+      preco: "R$107,69",
+      imagem:
+        "https://m.media-amazon.com/images/I/51-jW6qP7YL._AC_SY300_SX300_QL70_ML2_.jpg",
+    },
+    {
+      id: 79,
+      categoria: {
+        pt: "Eletrodomésticos",
+        es: "Electrodomésticos",
+      },
       nome: {
         pt: "Lava-louças",
         es: "Lavavajillas",
@@ -1025,9 +1265,12 @@ function App() {
       imagem:
         "https://brastemp.vtexassets.com/arquivos/ids/269634-800-auto?v=638984623937330000&width=800&height=auto&aspect=true",
     },
-
     {
-      id: 81,
+      id: 80,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
       nome: {
         pt: "Jogo de talheres",
         es: "Juego de cubiertos",
@@ -1036,9 +1279,12 @@ function App() {
       imagem:
         "https://letseatit.com.br/cdn/shop/files/PRE-VENDA-Faqueiro-Laguiole-La-Maison-Luxo-Azul-Marinho-18-Pecas.webp?v=1761954360&width=960",
     },
-
     {
-      id: 82,
+      id: 81,
+      categoria: {
+        pt: "Eletrodomésticos",
+        es: "Electrodomésticos",
+      },
       nome: {
         pt: "Lava e Seca Samsung 3 em 1 e Lavagem a Seco 11kg",
         es: "Lavadora y secadora Samsung 3 en 1 con función de limpieza en seco, 11 kg",
@@ -1047,9 +1293,12 @@ function App() {
       imagem:
         "https://m.media-amazon.com/images/I/41HELBbb0WL._AC_SY300_SX300_QL70_ML2_.jpg",
     },
-
     {
-      id: 83,
+      id: 82,
+      categoria: {
+        pt: "Lua de mel e experiências",
+        es: "Luna de miel y experiencias",
+      },
       nome: {
         pt: "Patrocine a lua de mel dos noivos",
         es: "Patrocina la luna de miel de los recién casados.",
@@ -1058,9 +1307,12 @@ function App() {
       imagem:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPr-tmEKQfw03kEAokxGpO2F8g63PVRu6mAw&s",
     },
-
     {
-      id: 84,
+      id: 83,
+      categoria: {
+        pt: "Divertidos",
+        es: "Divertidos",
+      },
       nome: {
         pt: "Poder ir junto com os noivos para a lua de mel",
         es: "Poder ir de luna de miel con los recién casados",
@@ -1069,7 +1321,60 @@ function App() {
       imagem:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTidf7XK2RxaIZ-KfkuiBfG1XDNuoggkxCG8Q&s",
     },
+    {
+      id: 84,
+      categoria: {
+        pt: "Cozinha",
+        es: "Cocina",
+      },
+      nome: {
+        pt: "Suporte para bolo",
+        es: "Soporte para pasteles",
+      },
+      preco: "R$108,78",
+      imagem:
+        "https://m.media-amazon.com/images/I/51F3tZyNaTL._AC_SY300_SX300_QL70_ML2_.jpg",
+    },
+    {
+      id: 85,
+      categoria: {
+        pt: "Contribuição",
+        es: "Contribuciones",
+      },
+      nome: {
+        pt: "Doação para a fundação de Rafa",
+        es: "Donación a la fundación de Rafa",
+      },
+      preco: "R$300,00",
+      imagem: ong,
+    },
+    {
+      id: 86,
+      categoria: {
+        pt: "Contribuição",
+        es: "Contribuciones",
+      },
+      nome: {
+        pt: "Doação para a fundação de Rafa",
+        es: "Donación a la fundación de Rafa",
+      },
+      preco: "R$400,00",
+      imagem: ong,
+    },
   ];
+
+  const categoriasContagem = presentes.reduce((acc, presente) => {
+    const cat = presente.categoria[language];
+    acc[cat] = (acc[cat] || 0) + 1;
+    return acc;
+  }, {});
+
+  const presentesFiltrados =
+    categoriasSelecionadas.length === 0
+      ? presentes
+      : presentes.filter((p) =>
+          categoriasSelecionadas.includes(p.categoria[language]),
+        );
   const position = [-19.85497, -43.97319];
 
   return (
@@ -1205,122 +1510,208 @@ function App() {
           sx={{
             background: "#f7f7f7",
             minHeight: "100vh",
-            padding: "20px",
+            padding: { xs: "12px", md: "20px" },
             display: "flex",
             justifyContent: "center",
           }}
         >
-          <Box sx={{ width: "100%" }}>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: { xs: "column", md: "row" },
+              gap: { xs: "16px", md: "24px" },
+              alignItems: "flex-start",
+            }}
+          >
+            {/* SIDEBAR DE CATEGORIAS */}
             <Box
               sx={{
-                display: "grid",
-                gridTemplateColumns: { xs: "1fr", md: "1fr 1fr 1fr" },
-                gap: "16px",
+                width: { xs: "80%", md: "240px" },
+                minWidth: { md: "240px" },
+                background: "#fff",
+                borderRadius: "16px",
+                border: "1px solid #e3e3e3",
+                padding: { xs: "14px", md: "20px" },
+                position: { xs: "static", md: "sticky" },
+                top: { md: "20px" },
               }}
             >
-              {presentes.slice(0, visibleItems).map((presente) => (
-                <Card
-                  key={presente.id}
-                  sx={{
-                    borderRadius: "20px",
-                    border: "1px solid #e3e3e3",
-                    boxShadow: "none",
-                    padding: "14px",
-                  }}
-                >
-                  <Box
-                    component="img"
-                    src={presente.imagem}
-                    alt={presente.nome[language]}
-                    sx={{
-                      width: "100%",
-                      height: "180px",
-                      objectFit: "contain",
-                      borderRadius: "18px",
-                      display: "block",
-                    }}
-                  />
-
-                  <CardContent sx={{ padding: "5px 0 0 0 !important" }}>
-                    <Typography
-                      sx={{
-                        textAlign: "center",
-                        fontSize: "18px",
-                        color: "#555",
-                        lineHeight: "26px",
-                        minHeight: "80px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      {presente.nome[language]}
-                    </Typography>
-
-                    <Typography
-                      sx={{
-                        textAlign: "center",
-                        fontSize: "24px",
-                        fontWeight: "bold",
-                        color: "#444",
-                        marginTop: "10px",
-                      }}
-                    >
-                      {presente.preco}
-                    </Typography>
-
-                    <Button
-                      fullWidth
-                      variant="contained"
-                      sx={{
-                        marginTop: "22px",
-                        height: "55px",
-                        borderRadius: "16px",
-                        background: "#001f3f",
-                        fontSize: "18px",
-                        fontWeight: "bold",
-                        textTransform: "none",
-                        boxShadow: "none",
-                        "&:hover": {
-                          background: "#001f3f",
-                          boxShadow: "none",
-                        },
-                      }}
-                      onClick={() => presentear(presente)}
-                    >
-                      {t.giftButton}
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </Box>
-
-            {visibleItems < presentes.length && (
+              <Typography
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: { xs: "16px", md: "18px" },
+                  marginBottom: "12px",
+                }}
+              >
+                {t.category}
+              </Typography>
               <Box
                 sx={{
                   display: "flex",
-                  justifyContent: "center",
-                  marginTop: "32px",
+                  flexDirection: { xs: "column", md: "column" },
+                  flexWrap: { xs: "wrap", md: "nowrap" },
+                  gap: { xs: "4px 12px", md: 0 },
+                  width: { xs: "180%", md: "100%" },
                 }}
               >
-                <Button
-                  variant="contained"
-                  onClick={() => setVisibleItems((prev) => prev + 6)}
+                {Object.entries(categoriasContagem).map(
+                  ([categoria, count]) => (
+                    <Box
+                      key={categoria}
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        cursor: "pointer",
+                        width: { xs: "100%", md: "100%" },
+                      }}
+                      onClick={() => toggleCategoria(categoria)}
+                    >
+                      <Checkbox
+                        checked={categoriasSelecionadas.includes(categoria)}
+                        onChange={() => toggleCategoria(categoria)}
+                        onClick={(e) => e.stopPropagation()}
+                        size="small"
+                        sx={{
+                          color: "#e75480",
+                          padding: { xs: "4px", md: "9px" },
+                          "&.Mui-checked": { color: "#e75480" },
+                        }}
+                      />
+                      <Typography
+                        sx={{
+                          fontSize: { xs: "13px", md: "15px" },
+                          color: "#333",
+                        }}
+                      >
+                        {categoria}{" "}
+                        <span style={{ color: "#e75480", fontWeight: "bold" }}>
+                          ({count})
+                        </span>
+                      </Typography>
+                    </Box>
+                  ),
+                )}
+              </Box>
+            </Box>
+
+            {/* GRID DE PRESENTES */}
+            <Box sx={{ flex: 1, width: "100%" }}>
+              <Box
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: {
+                    xs: "1fr",
+                    sm: "1fr 1fr",
+                    md: "1fr 1fr 1fr",
+                  },
+                  gap: { xs: "12px", md: "16px" },
+                }}
+              >
+                {presentesFiltrados.slice(0, visibleItems).map((presente) => (
+                  <Card
+                    key={presente.id}
+                    sx={{
+                      borderRadius: "20px",
+                      border: "1px solid #e3e3e3",
+                      boxShadow: "none",
+                      padding: { xs: "10px", md: "14px" },
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src={presente.imagem}
+                      alt={presente.nome[language]}
+                      sx={{
+                        width: "100%",
+                        height: { xs: "140px", md: "180px" },
+                        objectFit: "contain",
+                        borderRadius: "18px",
+                        display: "block",
+                      }}
+                    />
+
+                    <CardContent sx={{ padding: "5px 0 0 0 !important" }}>
+                      <Typography
+                        sx={{
+                          textAlign: "center",
+                          fontSize: { xs: "15px", md: "18px" },
+                          color: "#555",
+                          lineHeight: { xs: "20px", md: "26px" },
+                          minHeight: { xs: "60px", md: "80px" },
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        {presente.nome[language]}
+                      </Typography>
+
+                      <Typography
+                        sx={{
+                          textAlign: "center",
+                          fontSize: { xs: "18px", md: "24px" },
+                          fontWeight: "bold",
+                          color: "#444",
+                          marginTop: "10px",
+                        }}
+                      >
+                        {presente.preco}
+                      </Typography>
+
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        sx={{
+                          marginTop: { xs: "14px", md: "22px" },
+                          height: { xs: "44px", md: "55px" },
+                          borderRadius: "16px",
+                          background: "#001f3f",
+                          fontSize: { xs: "15px", md: "18px" },
+                          fontWeight: "bold",
+                          textTransform: "none",
+                          boxShadow: "none",
+                          "&:hover": {
+                            background: "#001f3f",
+                            boxShadow: "none",
+                          },
+                        }}
+                        onClick={() => presentear(presente)}
+                      >
+                        {t.giftButton}
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </Box>
+
+              {visibleItems < presentesFiltrados.length && (
+                <Box
                   sx={{
-                    background: "#001f3f",
-                    borderRadius: "16px",
-                    padding: "12px 32px",
-                    textTransform: "none",
-                    fontSize: "16px",
-                    "&:hover": {
-                      background: "#001f3f",
-                    },
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "32px",
                   }}
                 >
-                  {t.seeMore}
-                </Button>
-              </Box>
-            )}
+                  <Button
+                    variant="contained"
+                    onClick={() => setVisibleItems((prev) => prev + 6)}
+                    sx={{
+                      background: "#001f3f",
+                      borderRadius: "16px",
+                      padding: "12px 32px",
+                      textTransform: "none",
+                      fontSize: "16px",
+                      "&:hover": {
+                        background: "#001f3f",
+                      },
+                    }}
+                  >
+                    {t.seeMore}
+                  </Button>
+                </Box>
+              )}
+            </Box>
           </Box>
         </Box>
       </div>
