@@ -66,7 +66,7 @@ function App() {
   const translations = {
     pt: {
       welcome:
-        "Sejam bem-vindos ao nosso sonho! \n \n No dia 29 de agosto, cercados pelo verde da natureza e sob a luz do entardecer, vamos dar o passo mais importante das nossas vidas. \n Escolhemos cada detalhe com muito carinho e estamos ansiosos para compartilha-los com as pessoas que mais amamos. \n \n Aguardamos vocês, \n Morganna & Rafael",
+        "Sejam bem-vindos ao nosso sonho! \n \n No dia 29 de agosto, cercados pelo verde da natureza e sob a luz do entardecer, vamos dar o passo mais importante das nossas vidas. \n Escolhemos cada detalhe com muito carinho e estamos ansiosos para  compartilhá-los com as pessoas que mais amamos. \n \n Aguardamos vocês, \n Morganna & Rafael",
       countdown: "CONTAGEM REGRESSIVA",
       days: "DIAS",
       hours: "HORAS",
