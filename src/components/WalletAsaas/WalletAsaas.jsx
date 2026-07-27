@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
+import axios from "axios";
 
 import {
   Box,
@@ -12,28 +12,28 @@ import {
   MenuItem,
   Divider,
   CircularProgress,
-} from '@mui/material';
+} from "@mui/material";
 
 export default function WalletAsaas({ amount, productName, onPaymentSuccess }) {
   const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({
     // Customer
-    name: '',
-    email: '',
-    cpfCnpj: '',
-    phone: '',
+    name: "",
+    email: "",
+    cpfCnpj: "",
+    phone: "",
 
     // Address
-    postalCode: '',
-    addressNumber: '',
+    postalCode: "",
+    addressNumber: "",
 
     // Card
-    holderName: '',
-    number: '',
-    expiryMonth: '',
-    expiryYear: '',
-    ccv: '',
+    holderName: "",
+    number: "",
+    expiryMonth: "",
+    expiryYear: "",
+    ccv: "",
     installments: 1,
   });
 
@@ -48,35 +48,38 @@ export default function WalletAsaas({ amount, productName, onPaymentSuccess }) {
     try {
       setLoading(true);
 
-      const response = await axios.post('http://localhost:3333/pagamento-cartao', {
-        value: amount,
-        productName: productName,
-        installments: Number(form.installments),
+      const response = await axios.post(
+        "http://179.197.235.89:3333/pagamento-cartao",
+        {
+          value: amount,
+          productName: productName,
+          installments: Number(form.installments),
 
-        customer: {
-          name: form.name,
-          email: form.email,
-          cpfCnpj: form.cpfCnpj,
-          phone: form.phone,
-        },
+          customer: {
+            name: form.name,
+            email: form.email,
+            cpfCnpj: form.cpfCnpj,
+            phone: form.phone,
+          },
 
-        creditCard: {
-          holderName: form.holderName,
-          number: form.number.replace(/\s/g, ''),
-          expiryMonth: form.expiryMonth,
-          expiryYear: form.expiryYear,
-          ccv: form.ccv,
-        },
+          creditCard: {
+            holderName: form.holderName,
+            number: form.number.replace(/\s/g, ""),
+            expiryMonth: form.expiryMonth,
+            expiryYear: form.expiryYear,
+            ccv: form.ccv,
+          },
 
-        creditCardHolderInfo: {
-          name: form.name,
-          email: form.email,
-          cpfCnpj: form.cpfCnpj,
-          postalCode: form.postalCode,
-          addressNumber: form.addressNumber,
-          phone: form.phone,
+          creditCardHolderInfo: {
+            name: form.name,
+            email: form.email,
+            cpfCnpj: form.cpfCnpj,
+            postalCode: form.postalCode,
+            addressNumber: form.addressNumber,
+            phone: form.phone,
+          },
         },
-      });
+      );
 
       console.log(response.data);
 
@@ -84,12 +87,13 @@ export default function WalletAsaas({ amount, productName, onPaymentSuccess }) {
         onPaymentSuccess();
       }
 
-      alert('Pagamento realizado com sucesso!');
+      alert("Pagamento realizado com sucesso!");
     } catch (error) {
       console.error(error);
 
       alert(
-        error?.response?.data?.error?.errors?.[0]?.description || 'Erro ao processar pagamento',
+        error?.response?.data?.error?.errors?.[0]?.description ||
+          "Erro ao processar pagamento",
       );
     } finally {
       setLoading(false);
@@ -100,7 +104,7 @@ export default function WalletAsaas({ amount, productName, onPaymentSuccess }) {
     <Box
       sx={{
         maxWidth: 800,
-        mx: 'auto',
+        mx: "auto",
         p: 2,
       }}
     >
@@ -127,7 +131,7 @@ export default function WalletAsaas({ amount, productName, onPaymentSuccess }) {
                 fullWidth
                 label="Nome completo"
                 value={form.name}
-                onChange={(e) => handleChange('name', e.target.value)}
+                onChange={(e) => handleChange("name", e.target.value)}
               />
             </Grid>
 
@@ -137,7 +141,7 @@ export default function WalletAsaas({ amount, productName, onPaymentSuccess }) {
                 label="E-mail"
                 type="email"
                 value={form.email}
-                onChange={(e) => handleChange('email', e.target.value)}
+                onChange={(e) => handleChange("email", e.target.value)}
               />
             </Grid>
 
@@ -146,7 +150,7 @@ export default function WalletAsaas({ amount, productName, onPaymentSuccess }) {
                 fullWidth
                 label="Telefone"
                 value={form.phone}
-                onChange={(e) => handleChange('phone', e.target.value)}
+                onChange={(e) => handleChange("phone", e.target.value)}
               />
             </Grid>
 
@@ -155,7 +159,7 @@ export default function WalletAsaas({ amount, productName, onPaymentSuccess }) {
                 fullWidth
                 label="CPF/CNPJ"
                 value={form.cpfCnpj}
-                onChange={(e) => handleChange('cpfCnpj', e.target.value)}
+                onChange={(e) => handleChange("cpfCnpj", e.target.value)}
               />
             </Grid>
           </Grid>
@@ -173,7 +177,7 @@ export default function WalletAsaas({ amount, productName, onPaymentSuccess }) {
                 fullWidth
                 label="CEP"
                 value={form.postalCode}
-                onChange={(e) => handleChange('postalCode', e.target.value)}
+                onChange={(e) => handleChange("postalCode", e.target.value)}
               />
             </Grid>
 
@@ -182,7 +186,7 @@ export default function WalletAsaas({ amount, productName, onPaymentSuccess }) {
                 fullWidth
                 label="Número"
                 value={form.addressNumber}
-                onChange={(e) => handleChange('addressNumber', e.target.value)}
+                onChange={(e) => handleChange("addressNumber", e.target.value)}
               />
             </Grid>
           </Grid>
@@ -200,7 +204,7 @@ export default function WalletAsaas({ amount, productName, onPaymentSuccess }) {
                 fullWidth
                 label="Nome impresso no cartão"
                 value={form.holderName}
-                onChange={(e) => handleChange('holderName', e.target.value)}
+                onChange={(e) => handleChange("holderName", e.target.value)}
               />
             </Grid>
 
@@ -209,7 +213,7 @@ export default function WalletAsaas({ amount, productName, onPaymentSuccess }) {
                 fullWidth
                 label="Número do cartão"
                 value={form.number}
-                onChange={(e) => handleChange('number', e.target.value)}
+                onChange={(e) => handleChange("number", e.target.value)}
               />
             </Grid>
 
@@ -219,7 +223,7 @@ export default function WalletAsaas({ amount, productName, onPaymentSuccess }) {
                 label="Mês"
                 placeholder="12"
                 value={form.expiryMonth}
-                onChange={(e) => handleChange('expiryMonth', e.target.value)}
+                onChange={(e) => handleChange("expiryMonth", e.target.value)}
               />
             </Grid>
 
@@ -229,7 +233,7 @@ export default function WalletAsaas({ amount, productName, onPaymentSuccess }) {
                 label="Ano"
                 placeholder="2030"
                 value={form.expiryYear}
-                onChange={(e) => handleChange('expiryYear', e.target.value)}
+                onChange={(e) => handleChange("expiryYear", e.target.value)}
               />
             </Grid>
 
@@ -238,7 +242,7 @@ export default function WalletAsaas({ amount, productName, onPaymentSuccess }) {
                 fullWidth
                 label="CVV"
                 value={form.ccv}
-                onChange={(e) => handleChange('ccv', e.target.value)}
+                onChange={(e) => handleChange("ccv", e.target.value)}
               />
             </Grid>
 
@@ -248,7 +252,7 @@ export default function WalletAsaas({ amount, productName, onPaymentSuccess }) {
                 fullWidth
                 label="Parcelas"
                 value={form.installments}
-                onChange={(e) => handleChange('installments', e.target.value)}
+                onChange={(e) => handleChange("installments", e.target.value)}
               >
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item) => (
                   <MenuItem key={item} value={item}>
