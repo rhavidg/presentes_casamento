@@ -49,7 +49,7 @@ export default function WalletAsaas({ amount, productName, onPaymentSuccess }) {
       setLoading(true);
 
       const response = await axios.post(
-        "https://api.morgannaerafael.com.br:3000/pagamento-cartao",
+        "https://api.morgannaerafael.com.br/pagamento-cartao",
         {
           value: amount,
           productName: productName,
