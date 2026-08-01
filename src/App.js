@@ -1509,63 +1509,93 @@ function App() {
         <Box
           sx={{
             background: "#f7f7f7",
-            minHeight: "100vh",
-            padding: { xs: "12px", md: "20px" },
+            width: "100%",
+            padding: {
+              xs: "16px",
+              sm: "20px",
+              md: "24px",
+            },
             display: "flex",
             justifyContent: "center",
+            boxSizing: "border-box",
           }}
         >
           <Box
             sx={{
               width: "100%",
+              maxWidth: "1400px",
               display: "flex",
-              flexDirection: { xs: "column", md: "row" },
-              gap: { xs: "16px", md: "24px" },
-              alignItems: "flex-start",
+              flexDirection: {
+                xs: "column",
+                md: "row",
+              },
+              gap: {
+                xs: "20px",
+                md: "24px",
+              },
+              alignItems: {
+                xs: "stretch",
+                md: "flex-start",
+              },
             }}
           >
-            {/* SIDEBAR DE CATEGORIAS */}
+            {/* SIDEBAR */}
             <Box
               sx={{
-                width: { xs: "80%", md: "240px" },
-                minWidth: { md: "240px" },
+                width: {
+                  xs: "100%",
+                  md: "240px",
+                },
+                flexShrink: 0,
                 background: "#fff",
                 borderRadius: "16px",
                 border: "1px solid #e3e3e3",
-                padding: { xs: "14px", md: "20px" },
-                position: { xs: "static", md: "sticky" },
-                top: { md: "20px" },
+                padding: {
+                  xs: "16px",
+                  md: "20px",
+                },
+                boxSizing: "border-box",
+                position: {
+                  xs: "static",
+                  md: "sticky",
+                },
+                top: {
+                  md: "20px",
+                },
               }}
             >
               <Typography
                 sx={{
                   fontWeight: "bold",
-                  fontSize: { xs: "16px", md: "18px" },
-                  marginBottom: "12px",
+                  fontSize: {
+                    xs: "17px",
+                    md: "18px",
+                  },
+                  marginBottom: "16px",
                 }}
               >
                 {t.category}
               </Typography>
+
               <Box
                 sx={{
                   display: "flex",
-                  flexDirection: { xs: "column", md: "column" },
-                  flexWrap: { xs: "wrap", md: "nowrap" },
-                  gap: { xs: "4px 12px", md: 0 },
-                  width: { xs: "180%", md: "100%" },
+                  flexDirection: "column",
+                  gap: "8px",
+                  width: "100%",
                 }}
               >
                 {Object.entries(categoriasContagem).map(
                   ([categoria, count]) => (
                     <Box
                       key={categoria}
+                      onClick={() => toggleCategoria(categoria)}
                       sx={{
                         display: "flex",
                         alignItems: "center",
                         cursor: "pointer",
-                        width: { xs: "100%", md: "100%" },
+                        width: "100%",
                       }}
-                      onClick={() => toggleCategoria(categoria)}
                     >
                       <Checkbox
                         checked={categoriasSelecionadas.includes(categoria)}
@@ -1574,18 +1604,28 @@ function App() {
                         size="small"
                         sx={{
                           color: "#e75480",
-                          padding: { xs: "4px", md: "9px" },
-                          "&.Mui-checked": { color: "#e75480" },
+                          "&.Mui-checked": {
+                            color: "#e75480",
+                          },
                         }}
                       />
+
                       <Typography
                         sx={{
-                          fontSize: { xs: "13px", md: "15px" },
+                          fontSize: {
+                            xs: "14px",
+                            md: "15px",
+                          },
                           color: "#333",
                         }}
                       >
                         {categoria}{" "}
-                        <span style={{ color: "#e75480", fontWeight: "bold" }}>
+                        <span
+                          style={{
+                            color: "#e75480",
+                            fontWeight: "bold",
+                          }}
+                        >
                           ({count})
                         </span>
                       </Typography>
@@ -1595,17 +1635,25 @@ function App() {
               </Box>
             </Box>
 
-            {/* GRID DE PRESENTES */}
-            <Box sx={{ flex: 1, width: "100%" }}>
+            {/* GRID */}
+            <Box
+              sx={{
+                flex: 1,
+                width: "100%",
+              }}
+            >
               <Box
                 sx={{
                   display: "grid",
                   gridTemplateColumns: {
                     xs: "1fr",
-                    sm: "1fr 1fr",
-                    md: "1fr 1fr 1fr",
+                    sm: "repeat(2,1fr)",
+                    lg: "repeat(3,1fr)",
                   },
-                  gap: { xs: "12px", md: "16px" },
+                  gap: {
+                    xs: "16px",
+                    md: "20px",
+                  },
                 }}
               >
                 {presentesFiltrados.slice(0, visibleItems).map((presente) => (
@@ -1615,7 +1663,10 @@ function App() {
                       borderRadius: "20px",
                       border: "1px solid #e3e3e3",
                       boxShadow: "none",
-                      padding: { xs: "10px", md: "14px" },
+                      padding: {
+                        xs: "12px",
+                        md: "16px",
+                      },
                     }}
                   >
                     <Box
@@ -1624,21 +1675,28 @@ function App() {
                       alt={presente.nome[language]}
                       sx={{
                         width: "100%",
-                        height: { xs: "140px", md: "180px" },
+                        height: {
+                          xs: 170,
+                          sm: 190,
+                          md: 210,
+                        },
                         objectFit: "contain",
-                        borderRadius: "18px",
-                        display: "block",
                       }}
                     />
 
-                    <CardContent sx={{ padding: "5px 0 0 0 !important" }}>
+                    <CardContent sx={{ p: "8px 0 0!important" }}>
                       <Typography
                         sx={{
                           textAlign: "center",
-                          fontSize: { xs: "15px", md: "18px" },
+                          fontSize: {
+                            xs: 15,
+                            md: 18,
+                          },
                           color: "#555",
-                          lineHeight: { xs: "20px", md: "26px" },
-                          minHeight: { xs: "60px", md: "80px" },
+                          minHeight: {
+                            xs: 60,
+                            md: 70,
+                          },
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
@@ -1650,10 +1708,13 @@ function App() {
                       <Typography
                         sx={{
                           textAlign: "center",
-                          fontSize: { xs: "18px", md: "24px" },
                           fontWeight: "bold",
                           color: "#444",
-                          marginTop: "10px",
+                          fontSize: {
+                            xs: 22,
+                            md: 26,
+                          },
+                          mt: 1,
                         }}
                       >
                         {presente.preco}
@@ -1662,21 +1723,25 @@ function App() {
                       <Button
                         fullWidth
                         variant="contained"
+                        onClick={() => presentear(presente)}
                         sx={{
-                          marginTop: { xs: "14px", md: "22px" },
-                          height: { xs: "44px", md: "55px" },
+                          mt: 2,
+                          height: {
+                            xs: 46,
+                            md: 54,
+                          },
                           borderRadius: "16px",
                           background: "#001f3f",
-                          fontSize: { xs: "15px", md: "18px" },
-                          fontWeight: "bold",
                           textTransform: "none",
-                          boxShadow: "none",
+                          fontWeight: "bold",
+                          fontSize: {
+                            xs: 15,
+                            md: 17,
+                          },
                           "&:hover": {
                             background: "#001f3f",
-                            boxShadow: "none",
                           },
                         }}
-                        onClick={() => presentear(presente)}
                       >
                         {t.giftButton}
                       </Button>
@@ -1690,7 +1755,7 @@ function App() {
                   sx={{
                     display: "flex",
                     justifyContent: "center",
-                    marginTop: "32px",
+                    mt: 4,
                   }}
                 >
                   <Button
@@ -1699,9 +1764,9 @@ function App() {
                     sx={{
                       background: "#001f3f",
                       borderRadius: "16px",
-                      padding: "12px 32px",
+                      px: 4,
+                      py: 1.5,
                       textTransform: "none",
-                      fontSize: "16px",
                       "&:hover": {
                         background: "#001f3f",
                       },
